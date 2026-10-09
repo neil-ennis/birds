@@ -8,7 +8,9 @@ A public GitHub Pages catalogue for BirdNET Live session reports. The site lists
 2. Keep any audio, images, styles, or other files referenced by that report in the same folder or its subfolders. Use relative links in the HTML. Names with `#` are supported when encoded as `%23` in those links.
 3. Commit and push the folder to `main`. The GitHub Actions workflow rebuilds the catalogue and publishes the site automatically.
 
-Only the HTML report and local files it references are copied into the public site. Metadata and selection text files are ignored by Git, so they remain local unless you explicitly choose to add them. Review the HTML and audio before pushing: repository files themselves are public too.
+From each report folder, only the HTML report and local files it references are copied into the public site. Metadata and selection text files are ignored by Git, so they remain local unless you explicitly choose to add them. Review the HTML and audio before pushing: repository files themselves are public too.
+
+The home page photo in `site/images/magpie-samcem05.jpg` is by [Aviceda](https://commons.wikimedia.org/wiki/File:Magpie_samcem05.jpg), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The original file is preserved; the page crops it for display with CSS. Keep the footer credit and licence link if reusing the photo.
 
 ## Publish on GitHub Pages
 

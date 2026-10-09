@@ -120,10 +120,7 @@ def build() -> None:
         if OUTPUT.is_symlink() or OUTPUT.resolve().parent != ROOT.resolve():
             raise ValueError("Refusing to replace an unexpected output directory")
         shutil.rmtree(OUTPUT)
-    OUTPUT.mkdir()
-    for source in SOURCE.iterdir():
-        if source.is_file():
-            shutil.copy2(source, OUTPUT / source.name)
+    shutil.copytree(SOURCE, OUTPUT)
 
     reports = []
     for folder in sorted(ROOT.iterdir()):
