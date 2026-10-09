@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session_2026-10-10_06-30-39_#2 - BirdNET Live Report</title>
+<script>document.documentElement.classList.add('player-js');</script>
+
+<style>
+:root {
+  --bg: #f7f7f9;
+  --surface: #ffffff;
+  --surface-2: #f1f3f6;
+  --text: #1f2328;
+  --text-muted: #5d6470;
+  --border: #e2e5ea;
+  --primary: #0d6efd;
+  --primary-dim: #0d6efd22;
+  --accent: #ff8a3d;
+  --score-high: #2ea043;
+  --score-mid: #d29922;
+  --score-low: #cf222e;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
+  --shadow-lg: 0 2px 8px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.1);
+  --tr: .15s ease;
+  --r: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171c;
+    --surface: #1c2026;
+    --surface-2: #232831;
+    --text: #e6e8eb;
+    --text-muted: #9aa0a8;
+    --border: #2a2f38;
+    --primary: #4f9bff;
+    --primary-dim: #4f9bff22;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.35);
+    --shadow-lg: 0 2px 8px rgba(0,0,0,.45), 0 8px 24px rgba(0,0,0,.5);
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
+  padding: 24px 16px 64px;
+}
+.container { max-width: 960px; margin: 0 auto; }
+
+/* -- Header ------------------------------------------------- */
+header.report {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+header.report h1 {
+  margin: 0 0 2px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+header.report .subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+}
+.stats-bar strong { color: var(--text); }
+.stat-sep { color: var(--border); opacity: .7; }
+
+/* -- Meta grid ---------------------------------------------- */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 24px;
+}
+.meta-item .label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.meta-item .value { font-size: 14px; font-weight: 500; }
+
+/* -- Card shell --------------------------------------------- */
+section.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+section.card h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.section-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0;
+}
+
+/* -- Map ---------------------------------------------------- */
+#map {
+  height: 380px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.map-fallback {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  border: 1px dashed var(--border);
+}
+.map-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.map-head h2 { margin: 0; }
+/* Escape hatch that never depends on tiles loading. */
+.map-osm-link { font-size: 13px; white-space: nowrap; }
+/* Shown only when tiles actually fail; see initMap(). */
+.notice {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.notice.show { display: block; }
+.notice b { color: var(--text); }
+
+/* -- Timeline chart ----------------------------------------- */
+#timeline-canvas { display: block; width: 100%; border-radius: 6px; }
+.chart-summary {
+  margin: -4px 0 10px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* -- Toolbar ------------------------------------------------ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.toolbar-search {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+  max-width: 260px;
+}
+.toolbar-search input {
+  width: 100%;
+  padding: 6px 10px 6px 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  transition: border-color var(--tr), box-shadow var(--tr);
+  font-family: inherit;
+}
+.toolbar-search input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-dim);
+}
+.search-ico {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  width: 14px;
+  height: 14px;
+}
+.sort-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.sort-group label { margin-right: 2px; user-select: none; }
+.sort-btn, .action-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: background var(--tr), color var(--tr), border-color var(--tr);
+}
+.sort-btn:hover, .action-btn:hover {
+  background: var(--primary-dim);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.sort-btn.active {
+  background: var(--primary-dim);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+.toolbar-actions { display: flex; gap: 6px; margin-left: auto; }
+.det-counter {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* -- Detection cards ---------------------------------------- */
+#detection-list { display: flex; flex-direction: column; gap: 10px; }
+.detection {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow var(--tr);
+}
+.detection:hover { box-shadow: var(--shadow-lg); }
+.det-header {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 12px;
+  padding: 12px;
+  align-items: start;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--tr);
+}
+.det-header:hover { background: var(--surface-2); }
+.det-thumb {
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+.det-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.det-thumb .placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 10px; text-align: center; padding: 6px;
+}
+.det-info { min-width: 0; }
+.det-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+.det-title .common { font-size: 16px; font-weight: 600; }
+.det-title .sci { font-size: 12px; color: var(--text-muted); font-style: italic; }
+.det-stats {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.links { display: flex; gap: 6px; flex-wrap: wrap; }
+.links a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--primary-dim);
+  font-weight: 500;
+  transition: opacity var(--tr);
+}
+.links a:hover { opacity: .75; text-decoration: underline; }
+.det-chevron {
+  align-self: flex-start;
+  margin-top: 6px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: transform var(--tr), color var(--tr);
+  flex-shrink: 0;
+}
+.detection.collapsed .det-chevron { transform: rotate(-90deg); }
+.det-body {
+  border-top: 1px solid var(--border);
+}
+.detection.collapsed .det-body { display: none; }
+
+/* -- Score / count pills ------------------------------------ */
+.score {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  background: var(--score-mid);
+}
+.score.high { background: var(--score-high); }
+.score.low  { background: var(--score-low); }
+.count-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* -- Occurrences -------------------------------------------- */
+.occurrences {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px 10px;
+}
+.occurrence {
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.occurrence:last-child { border-bottom: none; }
+.occ-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.occ-time {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 62px;
+  flex-shrink: 0;
+}
+.occ-player {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 180px;
+}
+.native-audio { width: 100%; height: 32px; }
+.player-js .native-audio { display: none; }
+.audio-player { width: 100%; }
+.custom-player { display: none; }
+.player-js .custom-player {
+  display: grid;
+  grid-template-columns: auto minmax(80px, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+.player-btn {
+  min-width: 54px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  font: 600 12px/1 system-ui, sans-serif;
+}
+.player-range {
+  --pct: 0%;
+  width: 100%;
+  min-width: 80px;
+  accent-color: var(--primary);
+  background: linear-gradient(to right, var(--primary) var(--pct), var(--border) var(--pct));
+}
+.player-time {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  min-width: 72px;
+  text-align: right;
+}
+.occ-confirmed {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--primary-dim);
+  color: var(--primary);
+}
+/* Rejected pill. Same shape as .occ-confirmed but tinted with the low-score
+   red so a reviewer's "this ID is wrong" reads as the opposite verdict at a
+   glance. Unreviewed occurrences get no pill at all — silence is the honest
+   encoding for a detection nobody has judged. */
+.occ-rejected {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #cf222e22;
+  color: var(--score-low);
+}
+/* Heard / seen pill on manually-entered occurrences. Neutral surface
+   rather than the primary tint used by .occ-confirmed, so provenance
+   reads as secondary to the confirm state. */
+.occ-evidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+.occ-note {
+  margin-top: 6px;
+  padding: 5px 10px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+/* -- Empty state -------------------------------------------- */
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 28px;
+}
+
+/* -- Map markers -------------------------------------------- */
+.species-pin {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface-2);
+}
+.species-pin.fallback { background-color: #ff8a3d; }
+.popup-card { display: flex; gap: 8px; align-items: center; min-width: 180px; }
+.popup-card img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
+.popup-card .pop-body b { display: block; font-size: 13px; }
+.popup-card .pop-body i { color: #666; font-size: 11px; display: block; }
+.popup-card .pop-body span { font-size: 12px; }
+
+/* -- Footer ------------------------------------------------- */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 36px;
+  line-height: 2;
+}
+footer a { color: var(--primary); text-decoration: none; }
+.footer-context {
+  text-align: left;
+  max-width: 960px;
+  margin: 0 auto 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  line-height: 1.45;
+}
+.footer-context h2 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+.footer-context-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px 16px;
+}
+.footer-context-item .label {
+  display: block;
+  margin-bottom: 1px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.footer-context-item .value {
+  color: var(--text);
+  font-size: 12px;
+}
+
+/* -- Print -------------------------------------------------- */
+@media print {
+  body { background: white; padding: 12px; }
+  section.card, header.report, .detection { box-shadow: none !important; }
+  #map, .map-fallback, #timeline-section { display: none !important; }
+  audio, .toolbar { display: none !important; }
+  /* Browser-specific troubleshooting hints are meaningless on paper. */
+  .notice { display: none !important; }
+  .detection.collapsed .det-body { display: block !important; }
+}
+
+/* -- Responsive --------------------------------------------- */
+@media (max-width: 560px) {
+  .det-header { grid-template-columns: 88px 1fr auto; }
+  .det-thumb { width: 88px; height: 60px; }
+  .toolbar-search { max-width: 100%; }
+  .sort-group { display: none; }
+  .player-js .custom-player { grid-template-columns: auto 1fr; }
+  .player-time { grid-column: 1 / -1; text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="report">
+  <h1>Session_2026-10-10_06-30-39_#2</h1>
+  <div class="subtitle">Live session &middot; Saturday, October 10, 2026 06:30 &middot; 8m 49s</div>
+  <div class="stats-bar"><span><strong>63</strong> detections</span><span class="stat-sep">&middot;</span><span><strong>14</strong> species</span><span class="stat-sep">&middot;</span><span>Max <strong>91%</strong> confidence</span><span class="stat-sep">&middot;</span><span>Top: <strong>Eastern Whipbird</strong></span></div>
+  <div class="meta-grid"><div class="meta-item"><span class="label">Location</span><span class="value">Brisbane, Queensland, Australia</span></div>
+    <div class="meta-item"><span class="label">Coordinates</span><span class="value">-27.2720, 152.9713, 16.5 m</span></div>
+    <div class="meta-item"><span class="label">Temperature</span><span class="value">25.0 deg C</span></div>
+    <div class="meta-item"><span class="label">Wind</span><span class="value">2.3 m/s NW</span></div>
+    <div class="meta-item"><span class="label">Precipitation</span><span class="value">0.0 mm</span></div>
+    <div class="meta-item"><span class="label">Cloud cover</span><span class="value">89 %</span></div>
+    <div class="meta-item"><span class="label">Detections</span><span class="value">63</span></div>
+    <div class="meta-item"><span class="label">Species</span><span class="value">14</span></div></div>
+</header>
+
+<section class="card" id="timeline-section">
+  <h2>Detection timeline</h2>
+  <div class="chart-summary" id="timeline-summary"></div>
+  <canvas id="timeline-canvas" style="width:100%"></canvas>
+</section>
+
+
+
+<section class="card">
+  <h2>Full recording</h2>
+  <div class="audio-player"><audio class="native-audio" controls preload="none" src="BirdNET_Live_2026-10-10_06-30-39_%232.flac"></audio><div class="custom-player" aria-hidden="false"><button class="player-btn" type="button" aria-pressed="false">Play</button><input class="player-range" type="range" min="0" max="100" value="0" step="0.1" aria-label="Playback position"><span class="player-time">0:00 / --:--</span></div></div>
+  <div class="notice audio-notice"></div>
+</section>
+
+<section class="card">
+  <h2>Detections <span class="section-badge">63 total &middot; 14 species</span></h2>
+  <div class="notice audio-notice"></div>
+  <div class="toolbar">
+    <div class="toolbar-search">
+      <svg class="search-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="4.5"/>
+        <line x1="10.2" y1="10.2" x2="14" y2="14"/>
+      </svg>
+      <input type="search" id="species-search" placeholder="Search species..." autocomplete="off">
+    </div>
+    <div class="sort-group">
+      <label>Sort:</label>
+      <button class="sort-btn active" data-sort="conf">Confidence</button>
+      <button class="sort-btn" data-sort="time">First detected</button>
+      <button class="sort-btn" data-sort="count">Count</button>
+      <button class="sort-btn" data-sort="az">A-Z</button>
+    </div>
+    <div class="toolbar-actions">
+      <button class="action-btn" id="expand-all">Expand all</button>
+      <button class="action-btn" id="collapse-all">Collapse all</button>
+    </div>
+  </div>
+  <div class="det-counter" id="det-counter">14 species</div>
+  <div id="detection-list"><div class="detection collapsed" data-sci="eudynamys orientalis" data-common="pacific koel" data-count="4" data-conf="0.9138" data-has-audio="0" data-time="1791578121223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Eudynamys%20orientalis?size=thumb" alt="Pacific Koel" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Pacific Koel</span>
+        <span class="sci">Eudynamys orientalis</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">91%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/asikoe3" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/100695" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Pacific%20koel" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:20</span>
+          <span class="score high">91%</span>
+          <span style="color:var(--text-muted)">+7:41</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:42</span>
+          <span class="score ">69%</span>
+          <span style="color:var(--text-muted)">+8:03</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:36:03</span>
+          <span class="score ">62%</span>
+          <span style="color:var(--text-muted)">+5:24</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:21</span>
+          <span class="score ">51%</span>
+          <span style="color:var(--text-muted)">+4:42</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="cracticus torquatus" data-common="grey butcherbird" data-count="7" data-conf="0.9127" data-has-audio="0" data-time="1791578065223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb" alt="Grey Butcherbird" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Grey Butcherbird</span>
+        <span class="sci">Cracticus torquatus</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">91%</span>
+        <span class="count-pill">7 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/grybut1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/204497" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Grey%20butcherbird" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:16</span>
+          <span class="score high">91%</span>
+          <span style="color:var(--text-muted)">+7:37</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:33</span>
+          <span class="score high">90%</span>
+          <span style="color:var(--text-muted)">+6:54</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:25</span>
+          <span class="score high">90%</span>
+          <span style="color:var(--text-muted)">+3:46</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:02</span>
+          <span class="score high">88%</span>
+          <span style="color:var(--text-muted)">+7:23</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:28</span>
+          <span class="score high">88%</span>
+          <span style="color:var(--text-muted)">+7:49</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:00</span>
+          <span class="score high">76%</span>
+          <span style="color:var(--text-muted)">+6:21</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:53</span>
+          <span class="score high">76%</span>
+          <span style="color:var(--text-muted)">+8:14</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="psophodes olivaceus" data-common="eastern whipbird" data-count="15" data-conf="0.9004" data-has-audio="0" data-time="1791577840223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb" alt="Eastern Whipbird" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Eastern Whipbird</span>
+        <span class="sci">Psophodes olivaceus</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">90%</span>
+        <span class="count-pill">15 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/easwhi1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/117077" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Eastern%20whipbird" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:31:40</span>
+          <span class="score high">90%</span>
+          <span style="color:var(--text-muted)">+1:01</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:31:08</span>
+          <span class="score high">90%</span>
+          <span style="color:var(--text-muted)">+0:29</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:59</span>
+          <span class="score high">87%</span>
+          <span style="color:var(--text-muted)">+7:20</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:30:40</span>
+          <span class="score high">87%</span>
+          <span style="color:var(--text-muted)">+0:01</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:02</span>
+          <span class="score high">84%</span>
+          <span style="color:var(--text-muted)">+1:23</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:46</span>
+          <span class="score high">84%</span>
+          <span style="color:var(--text-muted)">+2:07</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:29</span>
+          <span class="score high">83%</span>
+          <span style="color:var(--text-muted)">+6:50</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:27</span>
+          <span class="score high">81%</span>
+          <span style="color:var(--text-muted)">+2:48</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:12</span>
+          <span class="score high">80%</span>
+          <span style="color:var(--text-muted)">+2:33</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:00</span>
+          <span class="score high">79%</span>
+          <span style="color:var(--text-muted)">+2:21</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:27</span>
+          <span class="score high">73%</span>
+          <span style="color:var(--text-muted)">+1:48</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:50</span>
+          <span class="score high">70%</span>
+          <span style="color:var(--text-muted)">+8:11</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:39:13</span>
+          <span class="score ">58%</span>
+          <span style="color:var(--text-muted)">+8:34</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:08</span>
+          <span class="score ">52%</span>
+          <span style="color:var(--text-muted)">+4:29</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:38</span>
+          <span class="score ">52%</span>
+          <span style="color:var(--text-muted)">+4:59</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="manorina melanocephala" data-common="noisy miner" data-count="3" data-conf="0.8932" data-has-audio="0" data-time="1791578201223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Manorina%20melanocephala?size=thumb" alt="Noisy Miner" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Noisy Miner</span>
+        <span class="sci">Manorina melanocephala</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">89%</span>
+        <span class="count-pill">3 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/noimin1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/12231" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Noisy%20miner" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:23</span>
+          <span class="score high">89%</span>
+          <span style="color:var(--text-muted)">+7:44</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:36:41</span>
+          <span class="score high">72%</span>
+          <span style="color:var(--text-muted)">+6:02</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:59</span>
+          <span class="score ">69%</span>
+          <span style="color:var(--text-muted)">+8:20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="meliphaga lewinii" data-common="lewin&#39;s honeyeater" data-count="4" data-conf="0.8747" data-has-audio="0" data-time="1791578089223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Meliphaga%20lewinii?size=thumb" alt="Lewin&#39;s Honeyeater" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Lewin&#39;s Honeyeater</span>
+        <span class="sci">Meliphaga lewinii</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">87%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/lewhon1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/12305" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Lewin&#39;s%20honeyeater" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:39</span>
+          <span class="score high">87%</span>
+          <span style="color:var(--text-muted)">+7:00</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:53</span>
+          <span class="score high">83%</span>
+          <span style="color:var(--text-muted)">+5:14</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:26</span>
+          <span class="score ">61%</span>
+          <span style="color:var(--text-muted)">+7:47</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:49</span>
+          <span class="score ">59%</span>
+          <span style="color:var(--text-muted)">+4:10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="rhipidura leucophrys" data-common="willie wagtail" data-count="4" data-conf="0.8722" data-has-audio="0" data-time="1791578138223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Rhipidura%20leucophrys?size=thumb" alt="Willie Wagtail" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Willie Wagtail</span>
+        <span class="sci">Rhipidura leucophrys</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">87%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/wilwag1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/8143" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Willie%20wagtail" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:02</span>
+          <span class="score high">87%</span>
+          <span style="color:var(--text-muted)">+6:23</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:36:23</span>
+          <span class="score high">77%</span>
+          <span style="color:var(--text-muted)">+5:44</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:36:41</span>
+          <span class="score ">70%</span>
+          <span style="color:var(--text-muted)">+6:02</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:38</span>
+          <span class="score ">61%</span>
+          <span style="color:var(--text-muted)">+4:59</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="corvus orru" data-common="torresian crow" data-count="4" data-conf="0.8012" data-has-audio="0" data-time="1791578042223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Corvus%20orru?size=thumb" alt="Torresian Crow" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Torresian Crow</span>
+        <span class="sci">Corvus orru</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">80%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/torcro2" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/8028" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Torresian%20crow" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:02</span>
+          <span class="score high">80%</span>
+          <span style="color:var(--text-muted)">+3:23</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:36:17</span>
+          <span class="score high">77%</span>
+          <span style="color:var(--text-muted)">+5:38</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:55</span>
+          <span class="score high">71%</span>
+          <span style="color:var(--text-muted)">+5:16</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:51</span>
+          <span class="score ">56%</span>
+          <span style="color:var(--text-muted)">+5:12</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="sphecotheres vieilloti" data-common="australasian figbird" data-count="9" data-conf="0.7792" data-has-audio="0" data-time="1791577843223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb" alt="Australasian Figbird" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Australasian Figbird</span>
+        <span class="sci">Sphecotheres vieilloti</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">78%</span>
+        <span class="count-pill">9 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/ausfig1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/73407" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Australasian%20figbird" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:30:43</span>
+          <span class="score high">78%</span>
+          <span style="color:var(--text-muted)">+0:04</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:30:52</span>
+          <span class="score high">74%</span>
+          <span style="color:var(--text-muted)">+0:13</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:31:31</span>
+          <span class="score ">64%</span>
+          <span style="color:var(--text-muted)">+0:52</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:49</span>
+          <span class="score ">61%</span>
+          <span style="color:var(--text-muted)">+3:10</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:31:12</span>
+          <span class="score ">60%</span>
+          <span style="color:var(--text-muted)">+0:33</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:54</span>
+          <span class="score ">58%</span>
+          <span style="color:var(--text-muted)">+2:15</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:17</span>
+          <span class="score ">57%</span>
+          <span style="color:var(--text-muted)">+2:38</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:41</span>
+          <span class="score ">57%</span>
+          <span style="color:var(--text-muted)">+2:02</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:30:59</span>
+          <span class="score ">54%</span>
+          <span style="color:var(--text-muted)">+0:20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="hirundo rustica" data-common="barn swallow" data-count="4" data-conf="0.7450" data-has-audio="0" data-time="1791578032223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Hirundo%20rustica?size=thumb" alt="Barn Swallow" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Barn Swallow</span>
+        <span class="sci">Hirundo rustica</span>
+      </div>
+      <div class="det-stats">
+        <span class="score high">75%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/barswa" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/11901" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Barn%20swallow" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:52</span>
+          <span class="score high">75%</span>
+          <span style="color:var(--text-muted)">+3:13</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:06</span>
+          <span class="score high">73%</span>
+          <span style="color:var(--text-muted)">+3:27</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:35:01</span>
+          <span class="score ">70%</span>
+          <span style="color:var(--text-muted)">+4:22</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:14</span>
+          <span class="score ">60%</span>
+          <span style="color:var(--text-muted)">+3:35</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="lichmera indistincta" data-common="brown honeyeater" data-count="1" data-conf="0.6376" data-has-audio="0" data-time="1791577942223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Lichmera%20indistincta?size=thumb" alt="Brown Honeyeater" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Brown Honeyeater</span>
+        <span class="sci">Lichmera indistincta</span>
+      </div>
+      <div class="det-stats">
+        <span class="score ">64%</span>
+        <span class="count-pill">1 detection</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/brohon1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/12526" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Brown%20honeyeater" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:32:22</span>
+          <span class="score ">64%</span>
+          <span style="color:var(--text-muted)">+1:43</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="gymnorhina tibicen" data-common="australian magpie" data-count="4" data-conf="0.6315" data-has-audio="0" data-time="1791578017223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Gymnorhina%20tibicen?size=thumb" alt="Australian Magpie" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Australian Magpie</span>
+        <span class="sci">Gymnorhina tibicen</span>
+      </div>
+      <div class="det-stats">
+        <span class="score ">63%</span>
+        <span class="count-pill">4 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/ausmag2" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/8575" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Australian%20magpie" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:37:12</span>
+          <span class="score ">63%</span>
+          <span style="color:var(--text-muted)">+6:33</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:10</span>
+          <span class="score ">61%</span>
+          <span style="color:var(--text-muted)">+3:31</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:39:01</span>
+          <span class="score ">61%</span>
+          <span style="color:var(--text-muted)">+8:22</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:33:37</span>
+          <span class="score ">57%</span>
+          <span style="color:var(--text-muted)">+2:58</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="acrocephalus australis" data-common="australian reed warbler" data-count="1" data-conf="0.6019" data-has-audio="0" data-time="1791578040223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Acrocephalus%20australis?size=thumb" alt="Australian Reed Warbler" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Australian Reed Warbler</span>
+        <span class="sci">Acrocephalus australis</span>
+      </div>
+      <div class="det-stats">
+        <span class="score ">60%</span>
+        <span class="count-pill">1 detection</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/aurwar1" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/116794" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Australian%20reed%20warbler" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:34:00</span>
+          <span class="score ">60%</span>
+          <span style="color:var(--text-muted)">+3:21</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="trichoglossus moluccanus" data-common="rainbow lorikeet" data-count="2" data-conf="0.5912" data-has-audio="0" data-time="1791577907223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Trichoglossus%20moluccanus?size=thumb" alt="Rainbow Lorikeet" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Rainbow Lorikeet</span>
+        <span class="sci">Trichoglossus moluccanus</span>
+      </div>
+      <div class="det-stats">
+        <span class="score ">59%</span>
+        <span class="count-pill">2 detections</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/railor5" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/980095" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Rainbow%20lorikeet" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:39:03</span>
+          <span class="score ">59%</span>
+          <span style="color:var(--text-muted)">+8:24</span>
+        </div>
+      </div>
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:31:47</span>
+          <span class="score ">58%</span>
+          <span style="color:var(--text-muted)">+1:08</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="detection collapsed" data-sci="pandion haliaetus" data-common="osprey" data-count="1" data-conf="0.5832" data-has-audio="0" data-time="1791578302223">
+  <div class="det-header" onclick="toggleDet(this.closest('.detection'))">
+    <div class="det-thumb">
+      <img src="https://birdnet.cornell.edu/taxonomy/api/image/Pandion%20haliaetus?size=thumb" alt="Osprey" onerror="this.outerHTML='<div class=&quot;placeholder&quot;>No image</div>'">
+    </div>
+    <div class="det-info">
+      <div class="det-title">
+        <span class="common">Osprey</span>
+        <span class="sci">Pandion haliaetus</span>
+      </div>
+      <div class="det-stats">
+        <span class="score ">58%</span>
+        <span class="count-pill">1 detection</span>
+      </div>
+      <div class="links" onclick="event.stopPropagation()">
+        <a href="https://ebird.org/species/osprey" target="_blank" rel="noopener">eBird</a>
+        <a href="https://www.inaturalist.org/taxa/116999" target="_blank" rel="noopener">iNaturalist</a>
+        <a href="https://en.wikipedia.org/wiki/Osprey" target="_blank" rel="noopener">Wikipedia</a>
+      </div>
+    </div>
+    <span class="det-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="det-body">
+    <div class="occurrences">
+      <div class="occurrence">
+        <div class="occ-main">
+          <span class="occ-time">06:38:22</span>
+          <span class="score ">58%</span>
+          <span style="color:var(--text-muted)">+7:43</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="card">
+  <h2>Recording settings</h2>
+  <div class="meta-grid"><div class="meta-item"><span class="label">Window</span><span class="value">3 s</span></div>
+    <div class="meta-item"><span class="label">Min confidence</span><span class="value">35%</span></div>
+    <div class="meta-item"><span class="label">Inference rate</span><span class="value">1.0x</span></div>
+    <div class="meta-item"><span class="label">Sensitivity</span><span class="value">1.00</span></div></div>
+</section>
+
+<section class="card">
+  <h2>Session details</h2>
+  <div class="meta-grid"><div class="meta-item"><span class="label">Session ID</span><span class="value">2026-10-10T06-30-39.221152</span></div>
+    <div class="meta-item"><span class="label">End time</span><span class="value">06:39:28</span></div>
+    <div class="meta-item"><span class="label">Recorded</span><span class="value">8m 49s</span></div>
+    <div class="meta-item"><span class="label">Session #</span><span class="value">2</span></div></div>
+</section>
+
+<footer>
+  <div class="footer-context"><h2>Analysis context</h2><div class="footer-context-grid"><div class="footer-context-item"><span class="label">App</span><span class="value">v1.2.0 build 225</span></div><div class="footer-context-item"><span class="label">Audio model</span><span class="value">BirdNET+ V3.0-preview3.1 Global 10K-pruned (FP16) | v3.0-preview3.1 | 9789 species | 32000 Hz</span></div><div class="footer-context-item"><span class="label">Geo model</span><span class="value">BirdNET+ Geomodel V3.0.4 Global 10K-pruned (FP16) | v3.0.4 | 9789 species</span></div><div class="footer-context-item"><span class="label">Analysis settings</span><span class="value">3s window | 35% min confidence | 1 Hz | sensitivity 1</span></div></div></div>
+  Generated by <a href="https://birdnet.cornell.edu" target="_blank" rel="noopener">BirdNET Live</a> &middot;
+  Species data &amp; images &copy; <a href="https://birdnet.cornell.edu" target="_blank" rel="noopener">Cornell Lab of Ornithology</a>
+</footer>
+
+</div>
+
+<script>window.SESSION_DATA = {"detections":[{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.8684789538383484,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.7792218923568726,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.7362251281738281,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.539358913898468,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.9002944827079773,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.5950108766555786,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.6409295797348022,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.9004290103912354,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Rainbow Lorikeet","sci":"Trichoglossus moluccanus","conf":0.579361081123352,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Trichoglossus%20moluccanus?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.8447068929672241,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Brown Honeyeater","sci":"Lichmera indistincta","conf":0.637602686882019,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Lichmera%20indistincta?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.732383668422699,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.5685752630233765,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.8442334532737732,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.5844799876213074,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.7898962497711182,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.796470046043396,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.5716234445571899,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.807624101638794,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Australian Magpie","sci":"Gymnorhina tibicen","conf":0.5666192770004272,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Gymnorhina%20tibicen?size=thumb"},{"common":"Australasian Figbird","sci":"Sphecotheres vieilloti","conf":0.612523078918457,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Sphecotheres%20vieilloti?size=thumb"},{"common":"Barn Swallow","sci":"Hirundo rustica","conf":0.745039701461792,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Hirundo%20rustica?size=thumb"},{"common":"Australian Reed Warbler","sci":"Acrocephalus australis","conf":0.6019366979598999,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Acrocephalus%20australis?size=thumb"},{"common":"Torresian Crow","sci":"Corvus orru","conf":0.8012358546257019,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Corvus%20orru?size=thumb"},{"common":"Barn Swallow","sci":"Hirundo rustica","conf":0.7317278981208801,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Hirundo%20rustica?size=thumb"},{"common":"Australian Magpie","sci":"Gymnorhina tibicen","conf":0.6126456260681152,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Gymnorhina%20tibicen?size=thumb"},{"common":"Barn Swallow","sci":"Hirundo rustica","conf":0.6024801135063171,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Hirundo%20rustica?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.8968239426612854,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Lewin's Honeyeater","sci":"Meliphaga lewinii","conf":0.586585521697998,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Meliphaga%20lewinii?size=thumb"},{"common":"Barn Swallow","sci":"Hirundo rustica","conf":0.6998262405395508,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Hirundo%20rustica?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.5162648558616638,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Pacific Koel","sci":"Eudynamys orientalis","conf":0.5098709464073181,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Eudynamys%20orientalis?size=thumb"},{"common":"Willie Wagtail","sci":"Rhipidura leucophrys","conf":0.6066997647285461,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Rhipidura%20leucophrys?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.5153360366821289,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Torresian Crow","sci":"Corvus orru","conf":0.5559092164039612,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Corvus%20orru?size=thumb"},{"common":"Lewin's Honeyeater","sci":"Meliphaga lewinii","conf":0.8342558145523071,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Meliphaga%20lewinii?size=thumb"},{"common":"Torresian Crow","sci":"Corvus orru","conf":0.7113199234008789,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Corvus%20orru?size=thumb"},{"common":"Pacific Koel","sci":"Eudynamys orientalis","conf":0.6192670464515686,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Eudynamys%20orientalis?size=thumb"},{"common":"Torresian Crow","sci":"Corvus orru","conf":0.7651762962341309,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Corvus%20orru?size=thumb"},{"common":"Willie Wagtail","sci":"Rhipidura leucophrys","conf":0.7655941843986511,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Rhipidura%20leucophrys?size=thumb"},{"common":"Noisy Miner","sci":"Manorina melanocephala","conf":0.7215645909309387,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Manorina%20melanocephala?size=thumb"},{"common":"Willie Wagtail","sci":"Rhipidura leucophrys","conf":0.6960785388946533,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Rhipidura%20leucophrys?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.7641178369522095,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Willie Wagtail","sci":"Rhipidura leucophrys","conf":0.8721559047698975,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Rhipidura%20leucophrys?size=thumb"},{"common":"Australian Magpie","sci":"Gymnorhina tibicen","conf":0.6315029859542847,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Gymnorhina%20tibicen?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.8263519406318665,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.9032076597213745,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Lewin's Honeyeater","sci":"Meliphaga lewinii","conf":0.8747298717498779,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Meliphaga%20lewinii?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.8704445362091064,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.881637692451477,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.9127421975135803,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Pacific Koel","sci":"Eudynamys orientalis","conf":0.9137755632400513,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Eudynamys%20orientalis?size=thumb"},{"common":"Osprey","sci":"Pandion haliaetus","conf":0.5832129120826721,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Pandion%20haliaetus?size=thumb"},{"common":"Noisy Miner","sci":"Manorina melanocephala","conf":0.8932490348815918,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Manorina%20melanocephala?size=thumb"},{"common":"Lewin's Honeyeater","sci":"Meliphaga lewinii","conf":0.6127623915672302,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Meliphaga%20lewinii?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.8784183859825134,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Pacific Koel","sci":"Eudynamys orientalis","conf":0.6901662349700928,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Eudynamys%20orientalis?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.7017055153846741,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"},{"common":"Grey Butcherbird","sci":"Cracticus torquatus","conf":0.7550196647644043,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Cracticus%20torquatus?size=thumb"},{"common":"Noisy Miner","sci":"Manorina melanocephala","conf":0.6922597885131836,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Manorina%20melanocephala?size=thumb"},{"common":"Australian Magpie","sci":"Gymnorhina tibicen","conf":0.6075002551078796,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Gymnorhina%20tibicen?size=thumb"},{"common":"Rainbow Lorikeet","sci":"Trichoglossus moluccanus","conf":0.5912253856658936,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Trichoglossus%20moluccanus?size=thumb"},{"common":"Eastern Whipbird","sci":"Psophodes olivaceus","conf":0.5844628810882568,"lat":null,"lon":null,"alt":null,"altRef":null,"altAccuracy":null,"fixTime":null,"clip":null,"img":"https://birdnet.cornell.edu/taxonomy/api/image/Psophodes%20olivaceus?size=thumb"}],"track":[],"trackAltitude":[],"sessionAltitude":16.547672362461476,"sessionAltitudeReference":"unknown","sessionAltitudeAccuracy":4.470380783081055,"sessionLocationFixTime":"2026-10-09T20:30:38.964Z","center":[-27.2719913,152.9712679],"timeline":{"bins":[4,3,2,3,3,3,2,7,1,3,1,6,2,2,3,3,3,6,5,1],"binSeconds":27,"durationSeconds":530,"total":63}};</script>
+
+<script defer>
+/* -- Timeline bar chart ------------------------------------------ */
+function initTimeline() {
+  var el = document.getElementById('timeline-canvas');
+  if (!el) return;
+  var timeline = (window.SESSION_DATA || {}).timeline;
+  var bins = timeline && timeline.bins;
+  if (!bins || !bins.length) {
+    var sec = document.getElementById('timeline-section');
+    if (sec) sec.style.display = 'none';
+    return;
+  }
+  var maxN = bins.reduce(function(m, n) { return n > m ? n : m; }, 0);
+  if (!maxN) {
+    var sec2 = document.getElementById('timeline-section');
+    if (sec2) sec2.style.display = 'none';
+    return;
+  }
+  var binSeconds = Math.max(1, timeline.binSeconds || 1);
+  var durationSeconds = Math.max(binSeconds * bins.length, timeline.durationSeconds || 0);
+  var summary = document.getElementById('timeline-summary');
+  if (summary) {
+    summary.textContent =
+      (timeline.total || 0) + ' detections across ' + fmtDuration(durationSeconds) +
+      ' (' + fmtDuration(binSeconds) + ' bins, peak ' + maxN + ')';
+  }
+  var dpr = window.devicePixelRatio || 1;
+  var W = el.parentElement.clientWidth || 600;
+  var H = 86;
+  el.width = Math.round(W * dpr);
+  el.height = Math.round(H * dpr);
+  el.style.height = H + 'px';
+  var g = el.getContext('2d');
+  g.scale(dpr, dpr);
+  var nb = bins.length;
+  var bw = W / nb;
+  g.clearRect(0, 0, W, H);
+  g.strokeStyle = 'rgba(128,128,128,0.25)';
+  g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(0, H - 24.5);
+  g.lineTo(W, H - 24.5);
+  g.stroke();
+  bins.forEach(function(n, i) {
+    if (!n) return;
+    var frac = n / maxN;
+    var bh = Math.max(2, Math.round(frac * (H - 32)));
+    var x = i * bw + 0.5;
+    var bwInner = Math.max(1, bw - 1);
+    var gr = g.createLinearGradient(0, H - 24 - bh, 0, H - 24);
+    gr.addColorStop(0, 'rgba(' + (79 + Math.round(176 * frac)) + ',' +
+      (155 + Math.round(46 * frac)) + ',' + (255 - Math.round(200 * frac)) + ',0.9)');
+    gr.addColorStop(1, 'rgba(79,155,255,0.3)');
+    g.fillStyle = gr;
+    g.fillRect(x, H - 24 - bh, bwInner, bh);
+    if (bw > 18) {
+      g.fillStyle = 'rgba(128,128,128,0.85)';
+      g.font = '10px system-ui, sans-serif';
+      g.textAlign = 'center';
+      g.fillText(String(n), x + bwInner / 2, Math.max(10, H - 27 - bh));
+    }
+  });
+  g.fillStyle = 'rgba(128,128,128,0.7)';
+  g.font = '10px system-ui, sans-serif';
+  function lbl(seconds, x, align) {
+    var txt = fmtDuration(seconds);
+    g.textAlign = align;
+    g.fillText(txt, x, H - 6);
+  }
+  lbl(0, 0, 'left');
+  if (nb > 4) lbl(Math.floor(durationSeconds / 2), W / 2, 'center');
+  lbl(durationSeconds, W, 'right');
+}
+
+/* -- Map (Leaflet) ----------------------------------------------- */
+function showMapNotice(html) {
+  var n = document.getElementById('map-notice');
+  if (!n || n.classList.contains('show')) return;
+  n.innerHTML = html;
+  n.classList.add('show');
+}
+
+function initMap() {
+  /* Leaflet is loaded from a CDN. Offline, or behind a network that blocks
+     unpkg, it simply never defines L — degrade to a message plus the static
+     OpenStreetMap link that sits next to the heading. */
+  if (typeof L === 'undefined') {
+    var el = document.getElementById('map');
+    if (el) el.outerHTML = '<div class="map-fallback">The interactive map could not be loaded (no internet connection, or the map library was blocked).</div>';
+    showMapNotice('<b>Map unavailable.</b> Use the &ldquo;View on OpenStreetMap&rdquo; link above to see this location in your browser.');
+    return;
+  }
+  var data = window.SESSION_DATA;
+  var map = L.map('map', { zoomControl: true });
+  var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    /* Opened from file:// there is no meaningful referrer to send, and
+       browsers disagree on what they invent instead — Firefox has been seen
+       taking 403s from the tile server where Chromium is served normally.
+       Declaring no-referrer makes the request identical everywhere, so the
+       report behaves the same in every browser. */
+    referrerPolicy: 'no-referrer',
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  /* Tiles are fetched per-viewport, so a block shows up as repeated tileerror
+     events rather than one failure. A couple of errors is normal at the edge
+     of the world or on a flaky connection; a run of them means the tile
+     service is genuinely unreachable and the user needs a way out. */
+  var tileErrors = 0;
+  tiles.on('tileerror', function() {
+    tileErrors++;
+    if (tileErrors < 4) return;
+    showMapNotice(
+      '<b>Map tiles could not be loaded.</b> The pins and track below are still ' +
+      'positioned correctly, but the background imagery was blocked. This ' +
+      'usually happens when the report is opened directly from a file — try a ' +
+      'different browser, or use the &ldquo;View on OpenStreetMap&rdquo; link above.');
+  });
+  tiles.on('load', function() { tileErrors = 0; });
+
+  var bounds = L.latLngBounds([]);
+  if (data.track && data.track.length) {
+    var poly = L.polyline(data.track.map(function(p) { return [p[0], p[1]]; }),
+      { color: '#0d6efd', weight: 4, opacity: 0.8 }).addTo(map);
+    bounds.extend(poly.getBounds());
+  }
+  if (data.detections) {
+    data.detections.forEach(function(d) {
+      if (d.lat == null || d.lon == null) return;
+      var icon = L.divIcon({
+        className: '',
+        html: d.img
+          ? '<div class="species-pin" style="background-image:url(\'' + d.img + '\')"></div>'
+          : '<div class="species-pin fallback"></div>',
+        iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -20]
+      });
+      var m = L.marker([d.lat, d.lon], { icon: icon }).addTo(map);
+      var popup = '<div class="popup-card">'
+        + (d.img ? '<img src="' + d.img + '" alt="">' : '')
+        + '<div class="pop-body"><b>' + escHtml(d.common) + '</b>'
+        + '<i>' + escHtml(d.sci) + '</i>'
+        + '<span>' + Math.round(d.conf * 100) + '%</span></div></div>';
+      m.bindPopup(popup);
+      bounds.extend(m.getLatLng());
+    });
+  }
+  if (bounds.isValid()) {
+    map.fitBounds(bounds, { padding: [24, 24] });
+  } else if (data.center) {
+    map.setView([data.center[0], data.center[1]], 13);
+  } else {
+    map.setView([0, 0], 2);
+  }
+}
+
+/* -- Detection toggle -------------------------------------------- */
+function toggleDet(card) {
+  card.classList.toggle('collapsed');
+}
+
+/* -- Search / sort / expand -------------------------------------- */
+function initDetections() {
+  var search = document.getElementById('species-search');
+  if (search) search.addEventListener('input', filterDetections);
+
+  document.querySelectorAll('.sort-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      sortDetections(btn.dataset.sort);
+    });
+  });
+
+  var ea = document.getElementById('expand-all');
+  if (ea) ea.addEventListener('click', function() {
+    document.querySelectorAll('#detection-list .detection').forEach(function(d) {
+      d.classList.remove('collapsed');
+    });
+  });
+  var ca = document.getElementById('collapse-all');
+  if (ca) ca.addEventListener('click', function() {
+    document.querySelectorAll('#detection-list .detection').forEach(function(d) {
+      d.classList.add('collapsed');
+    });
+  });
+
+  sortDetections('conf');
+  filterDetections();
+}
+
+function filterDetections() {
+  var input = document.getElementById('species-search');
+  var q = (input ? input.value : '').toLowerCase().trim();
+  var list = document.getElementById('detection-list');
+  if (!list) return;
+  var cards = list.querySelectorAll('.detection');
+  var visible = 0;
+  cards.forEach(function(c) {
+    var show = !q
+      || (c.dataset.common || '').indexOf(q) >= 0
+      || (c.dataset.sci || '').indexOf(q) >= 0;
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  var counter = document.getElementById('det-counter');
+  if (counter) {
+    var total = cards.length;
+    counter.textContent = visible === total
+      ? total + ' species'
+      : visible + ' of ' + total + ' species';
+  }
+}
+
+function sortDetections(by) {
+  var list = document.getElementById('detection-list');
+  if (!list) return;
+  var cards = Array.from(list.querySelectorAll(':scope > .detection'));
+  cards.sort(function(a, b) {
+    var audioDiff = (b.dataset.hasAudio === '1' ? 1 : 0) -
+      (a.dataset.hasAudio === '1' ? 1 : 0);
+    if (audioDiff) return audioDiff;
+    if (by === 'count') return parseInt(b.dataset.count || '0') - parseInt(a.dataset.count || '0');
+    if (by === 'conf')  return parseFloat(b.dataset.conf || '0') - parseFloat(a.dataset.conf || '0');
+    if (by === 'az')    return (a.dataset.common || '').localeCompare(b.dataset.common || '');
+    if (by === 'time') return parseInt(a.dataset.time || '0') - parseInt(b.dataset.time || '0');
+    return parseFloat(b.dataset.conf || '0') - parseFloat(a.dataset.conf || '0');
+  });
+  cards.forEach(function(c) { list.appendChild(c); });
+}
+
+/* ---- Audio players ------------------------------------------------------- */
+/* The report references its audio by relative filename, so playback only works
+   when the sibling files are actually on disk next to it. The common failure is
+   opening report.html straight out of the .zip: Windows Explorer (and most
+   archive viewers) extract only the file you double-clicked to a temp folder
+   and leave the audio behind, so every src 404s with no explanation. Rather
+   than warn everybody up front, watch for the first real load error and explain
+   it then — the message is only shown to people who actually hit it. */
+function showAudioNotice() {
+  var html =
+    '<b>Audio files could not be found.</b> If you opened this report from ' +
+    'inside a .zip archive, extract the whole archive to a folder first and ' +
+    'then open the report again &mdash; the recordings have to sit next to ' +
+    'the report file for playback to work.';
+  /* One notice per audio-bearing card (full recording, detection clips), so the
+     explanation appears wherever the user pressed Play. */
+  document.querySelectorAll('.audio-notice').forEach(function(n) {
+    if (n.classList.contains('show')) return;
+    n.innerHTML = html;
+    n.classList.add('show');
+  });
+}
+
+function initAudioPlayers() {
+  document.querySelectorAll('.audio-player').forEach(function(player) {
+    var audio = player.querySelector('audio');
+    var btn = player.querySelector('.player-btn');
+    var range = player.querySelector('.player-range');
+    var time = player.querySelector('.player-time');
+    if (!audio || !btn || !range || !time) return;
+
+    function update() {
+      var duration = isFinite(audio.duration) ? audio.duration : 0;
+      var current = isFinite(audio.currentTime) ? audio.currentTime : 0;
+      var pct = duration > 0 ? Math.max(0, Math.min(100, current / duration * 100)) : 0;
+      range.value = String(pct);
+      range.style.setProperty('--pct', pct + '%');
+      time.textContent = fmtClock(current) + ' / ' + (duration > 0 ? fmtClock(duration) : '--:--');
+    }
+
+    btn.addEventListener('click', function() {
+      if (audio.paused) {
+        document.querySelectorAll('.audio-player audio').forEach(function(other) {
+          if (other !== audio) other.pause();
+        });
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    range.addEventListener('input', function() {
+      var duration = isFinite(audio.duration) ? audio.duration : 0;
+      if (duration > 0) audio.currentTime = duration * (parseFloat(range.value) / 100);
+      update();
+    });
+
+    audio.addEventListener('loadedmetadata', update);
+    audio.addEventListener('timeupdate', update);
+    /* Fires when the source is missing or undecodable. Because the players use
+       preload="none", this only happens once the user actually presses Play,
+       which is exactly the moment the explanation is useful. */
+    audio.addEventListener('error', function() {
+      btn.textContent = 'Play';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.disabled = true;
+      time.textContent = 'Unavailable';
+      showAudioNotice();
+    });
+    audio.addEventListener('play', function() {
+      btn.textContent = 'Pause';
+      btn.setAttribute('aria-pressed', 'true');
+    });
+    audio.addEventListener('pause', function() {
+      btn.textContent = 'Play';
+      btn.setAttribute('aria-pressed', 'false');
+    });
+    audio.addEventListener('ended', function() {
+      btn.textContent = 'Play';
+      btn.setAttribute('aria-pressed', 'false');
+      update();
+    });
+    update();
+  });
+}
+
+/* -- Utility ----------------------------------------------------- */
+function escHtml(s) {
+  return String(s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function fmtClock(seconds) {
+  seconds = Math.max(0, Math.floor(seconds || 0));
+  var h = Math.floor(seconds / 3600);
+  var m = Math.floor((seconds % 3600) / 60);
+  var s = seconds % 60;
+  if (h > 0) return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+function fmtDuration(seconds) {
+  seconds = Math.max(0, Math.round(seconds || 0));
+  var h = Math.floor(seconds / 3600);
+  var m = Math.floor((seconds % 3600) / 60);
+  var s = seconds % 60;
+  if (h > 0) return h + 'h ' + m + 'm';
+  if (m > 0) return m + 'm ' + s + 's';
+  return s + 's';
+}
+
+/* -- Boot -------------------------------------------------------- */
+window.addEventListener('load', function() {
+  initTimeline();
+  
+  initDetections();
+  initAudioPlayers();
+});
+</script>
+</body>
+</html>

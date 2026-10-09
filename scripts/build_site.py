@@ -1,0 +1,146 @@
+"""Build the static GitHub Pages site from the report folders.
+
+Only the HTML report and local files it references are published. The source
+folders themselves remain untouched.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import shutil
+from datetime import datetime
+from html.parser import HTMLParser
+from pathlib import Path
+from urllib.parse import quote, unquote, urlsplit
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / "site"
+OUTPUT = ROOT / "dist"
+SKIP_FOLDERS = {".git", ".github", "site", "scripts", "dist"}
+STAMP = re.compile(r"(?P<date>\d{4}-\d{2}-\d{2})_(?P<time>\d{2}-\d{2}-\d{2})")
+CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+
+
+class LocalReferences(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.references: set[str] = set()
+        self.in_style = False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.in_style = tag == "style"
+        for name, value in attrs:
+            if not value:
+                continue
+            if name in {"src", "href", "poster"}:
+                self.references.add(value)
+            elif name == "srcset":
+                for candidate in value.split(","):
+                    self.references.add(candidate.strip().split(" ")[0])
+            elif name == "style":
+                self.references.update(match.group(2) for match in CSS_URL.finditer(value))
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "style":
+            self.in_style = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_style:
+            self.references.update(match.group(2) for match in CSS_URL.finditer(data))
+
+
+def references_in(source: Path) -> set[str]:
+    suffix = source.suffix.lower()
+    if suffix not in {".css", ".html"}:
+        return set()
+    content = source.read_text(encoding="utf-8")
+    if suffix == ".css":
+        return {match.group(2) for match in CSS_URL.finditer(content)}
+    if suffix == ".html":
+        parser = LocalReferences()
+        parser.feed(content)
+        return parser.references
+    return set()
+
+
+def copy_with_dependencies(source: Path, folder: Path, copied: set[Path]) -> None:
+    source = source.resolve()
+    folder = folder.resolve()
+    if not source.is_relative_to(folder) or not source.is_file():
+        raise ValueError(f"Invalid report asset: {source}")
+    if source in copied:
+        return
+    copied.add(source)
+    destination = OUTPUT / "reports" / folder.name / source.relative_to(folder)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+
+    for reference in references_in(source):
+        parsed = urlsplit(reference)
+        if parsed.scheme or parsed.netloc or not parsed.path:
+            continue
+        asset = (source.parent / unquote(parsed.path)).resolve()
+        if not asset.is_relative_to(folder):
+            raise ValueError(f"Asset escapes report folder: {reference} in {source}")
+        if not asset.is_file():
+            raise FileNotFoundError(f"Missing report asset: {reference} in {source}")
+        copy_with_dependencies(asset, folder, copied)
+
+
+def describe(folder: Path, report: Path) -> dict[str, str]:
+    match = STAMP.search(folder.name)
+    raw_title = folder.name[: match.start()] if match else folder.name
+    title = re.sub(r"\s+", " ", raw_title.replace("_", " ").replace("-", " ")).strip()
+    session_match = re.search(r"#\d+$", folder.name)
+    session = f"Session {session_match.group()}" if session_match else "Session report"
+    date_label = time_label = sort_date = ""
+    if match:
+        recorded = datetime.strptime(
+            f"{match.group('date')}_{match.group('time')}", "%Y-%m-%d_%H-%M-%S"
+        )
+        date_label = f"{recorded.day} {recorded.strftime('%b %Y')}"
+        time_label = recorded.strftime("%I:%M %p").lstrip("0").lower()
+        sort_date = recorded.isoformat()
+
+    return {
+        "id": folder.name,
+        "title": title or "Bird recording",
+        "session": session,
+        "dateLabel": date_label,
+        "timeLabel": time_label,
+        "sortDate": sort_date,
+        "url": f"reports/{quote(folder.name, safe='')}/{quote(report.name, safe='')}",
+    }
+
+
+def build() -> None:
+    if OUTPUT.exists():
+        if OUTPUT.is_symlink() or OUTPUT.resolve().parent != ROOT.resolve():
+            raise ValueError("Refusing to replace an unexpected output directory")
+        shutil.rmtree(OUTPUT)
+    OUTPUT.mkdir()
+    for source in SOURCE.iterdir():
+        if source.is_file():
+            shutil.copy2(source, OUTPUT / source.name)
+
+    reports = []
+    for folder in sorted(ROOT.iterdir()):
+        if not folder.is_dir() or folder.name.startswith(".") or folder.name in SKIP_FOLDERS:
+            continue
+        html_files = sorted(folder.glob("*.html"))
+        if len(html_files) != 1:
+            raise ValueError(f"Expected one HTML report in {folder}, found {len(html_files)}")
+        report = html_files[0]
+        copy_with_dependencies(report, folder, set())
+        reports.append(describe(folder, report))
+
+    (OUTPUT / "reports.json").write_text(
+        json.dumps(reports, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(f"Built {len(reports)} report(s) in {OUTPUT}")
+
+
+if __name__ == "__main__":
+    build()

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6ef">
+  <meta name="description" content="Browse BirdNET Live recordings and explore each session report.">
+  <title>Birdsong Archive</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="brand" href="./" aria-label="Birdsong Archive home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none">
+            <path d="M8 26c6-1 10-6 13-11 1 6 6 10 15 11-6 1-10 4-14 9-2-5-6-8-14-9Z" fill="currentColor"/>
+            <path d="M24 15c3-4 6-5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Birdsong <strong>Archive</strong></span>
+      </a>
+      <span class="masthead-note">A collection of BirdNET Live reports</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="catalogue-view">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> Field recordings</p>
+          <h1 id="hero-title">Every recording tells a <em>story.</em></h1>
+          <p class="hero-description">A growing collection of moments from the natural world. Choose a session to listen and explore the birds detected along the way.</p>
+          <div class="hero-stats" aria-live="polite">
+            <div><strong id="report-count">—</strong><span id="report-count-label">Reports</span></div>
+            <span class="stat-divider" aria-hidden="true"></span>
+            <div><strong id="latest-date">—</strong><span>Latest session</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit art-orbit-one"></div>
+          <div class="art-orbit art-orbit-two"></div>
+          <svg class="art-bird" viewBox="0 0 280 230" fill="none">
+            <path d="M30 145c40 1 70-19 106-61 7 31 34 47 111 55-39 9-69 32-97 68-18-38-58-59-120-62Z" fill="currentColor"/>
+            <path d="M164 83c21-33 46-47 73-51" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+            <path d="M21 190c56-11 99-5 139 19" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".4"/>
+          </svg>
+          <div class="sound-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <span class="art-caption">Listen a little closer</span>
+        </div>
+      </section>
+
+      <section class="collection shell" aria-labelledby="collection-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The collection</p>
+            <h2 id="collection-title">Explore the sessions</h2>
+          </div>
+          <p>Pick a recording to open its full report.</p>
+        </div>
+        <div class="toolbar">
+          <label class="search-field" for="report-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+            <span class="visually-hidden">Search recordings</span>
+            <input id="report-search" type="search" placeholder="Search recordings" autocomplete="off">
+          </label>
+          <label class="sort-field" for="report-sort"><span>Sort by</span>
+            <select id="report-sort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="name">Name</option></select>
+          </label>
+        </div>
+        <p id="catalogue-status" class="catalogue-status" role="status"></p>
+        <div id="report-grid" class="report-grid"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-icon" aria-hidden="true">♪</span>
+          <h3>No recordings found</h3>
+          <p>Try a different search, or check back as the collection grows.</p>
+        </div>
+      </section>
+    </div>
+
+    <section id="viewer-view" class="viewer shell" aria-labelledby="viewer-title" hidden>
+      <a class="back-link" href="./"><span aria-hidden="true">←</span> All recordings</a>
+      <div class="viewer-heading">
+        <div>
+          <p class="eyebrow" id="viewer-kicker">Session report</p>
+          <h1 id="viewer-title"></h1>
+          <p id="viewer-details" class="viewer-details"></p>
+        </div>
+        <a id="direct-link" class="direct-link" href="#" target="_blank" rel="noopener noreferrer">Open full page <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="report-frame-wrap">
+        <iframe id="report-frame" title="BirdNET Live session report" loading="eager"></iframe>
+      </div>
+    </section>
+
+    <section id="error-view" class="error-view shell" hidden>
+      <p class="eyebrow">Something went quiet</p>
+      <h1 id="error-title">This report could not be found.</h1>
+      <p id="error-description">The link may be out of date.</p>
+      <a class="back-link" href="./"><span aria-hidden="true">←</span> Browse all recordings</a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="shell footer-inner"><span>Birdsong Archive</span><span>Take a moment. Listen in.</span></div></footer>
+</body>
+</html>
