@@ -12,7 +12,9 @@ Only the HTML report and local files it references are copied into the public si
 
 ## Publish on GitHub Pages
 
-In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**. Push to `main`, then watch the **Publish Birdsong Archive** workflow under **Actions**. The site URL will be `https://neil-ennis.github.io/birds/` unless a custom domain is configured.
+The repository's **Settings → Pages** uses **GitHub Actions** as the publishing source. Push to `main`, then watch the **Publish Birdsong Archive** workflow under **Actions**. The public address is **https://birds.neilennis.com/**.
+
+The custom domain is set in GitHub Pages settings. Cloudflare DNS has a **DNS only** CNAME record named `birds` pointing to `neil-ennis.github.io` (without `/birds`). Because this site is published by a custom Actions workflow, GitHub does not require a `CNAME` file in the repository. GitHub Pages manages the site's HTTPS certificate.
 
 ## Preview locally
 
