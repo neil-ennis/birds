@@ -23,3 +23,5 @@ The custom domain is set in GitHub Pages settings. Cloudflare DNS has a **DNS on
 Run `python scripts/build_site.py` from the repository root, then serve the generated `dist` folder with a local HTTP server, for example `python -m http.server 8000 --directory dist`. Open `http://localhost:8000/`. The generated `dist` folder is ignored by Git.
 
 The build fails if a report folder has zero or multiple top-level HTML files, or if a report references a missing local file. This keeps incomplete reports from silently appearing on the public site.
+
+BirdNET Live reports may request OpenStreetMap tiles with `referrerPolicy: 'no-referrer'`, which OpenStreetMap blocks on websites. During the build, the published HTML copies use `strict-origin-when-cross-origin` for those tiles. The source reports stay unchanged, and the map sends the site origin without exposing the report path.

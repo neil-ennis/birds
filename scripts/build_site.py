@@ -21,6 +21,14 @@ OUTPUT = ROOT / "dist"
 SKIP_FOLDERS = {".git", ".github", "site", "scripts", "dist"}
 STAMP = re.compile(r"(?P<date>\d{4}-\d{2}-\d{2})_(?P<time>\d{2}-\d{2}-\d{2})")
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+OSM_TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+OSM_NO_REFERRER = "referrerPolicy: 'no-referrer',"
+OSM_SITE_REFERRER = "referrerPolicy: 'strict-origin-when-cross-origin',"
+OSM_NO_REFERRER_NOTE = re.compile(
+    r"(?P<indent>^[ \t]*)/\* Opened from file://.*?\*/\s*"
+    r"(?=referrerPolicy: 'no-referrer',)",
+    re.MULTILINE | re.DOTALL,
+)
 
 
 class LocalReferences(HTMLParser):
@@ -65,6 +73,21 @@ def references_in(source: Path) -> set[str]:
     return set()
 
 
+def publish_report_html(source: Path, destination: Path) -> None:
+    html = source.read_text(encoding="utf-8")
+    if OSM_TILE_URL in html and OSM_NO_REFERRER in html:
+        # OSM requires a Referer from web pages. Keep the report path private.
+        html = OSM_NO_REFERRER_NOTE.sub(
+            lambda match: (
+                f"{match.group('indent')}/* Send this site's origin to OpenStreetMap. */\n"
+                f"{match.group('indent')}"
+            ),
+            html,
+        )
+        html = html.replace(OSM_NO_REFERRER, OSM_SITE_REFERRER)
+    destination.write_text(html, encoding="utf-8")
+
+
 def copy_with_dependencies(source: Path, folder: Path, copied: set[Path]) -> None:
     source = source.resolve()
     folder = folder.resolve()
@@ -75,7 +98,10 @@ def copy_with_dependencies(source: Path, folder: Path, copied: set[Path]) -> Non
     copied.add(source)
     destination = OUTPUT / "reports" / folder.name / source.relative_to(folder)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, destination)
+    if source.suffix.lower() == ".html":
+        publish_report_html(source, destination)
+    else:
+        shutil.copy2(source, destination)
 
     for reference in references_in(source):
         parsed = urlsplit(reference)
