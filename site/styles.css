@@ -120,8 +120,8 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
 .footer-inner { display: flex; justify-content: space-between; gap: 16px; padding-block: 25px; }
 .photo-credit { text-align: right; }
-.photo-credit a { text-decoration-color: #a6b9a5; text-underline-offset: 3px; }
-.photo-credit a:hover { color: var(--forest); text-decoration-color: currentColor; }
+.site-footer a { text-decoration-color: #a6b9a5; text-underline-offset: 3px; }
+.site-footer a:hover { color: var(--forest); text-decoration-color: currentColor; }
 
 @media (max-width: 800px) {
   .hero { grid-template-columns: 1fr; padding-block: 60px 75px; }
