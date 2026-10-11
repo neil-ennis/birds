@@ -69,7 +69,7 @@ function makeCard(report, number) {
     const label = document.createElement("strong");
     label.textContent = bird.common;
     const detail = document.createElement("span");
-    detail.textContent = `${bird.detections} ${bird.detections === 1 ? "detection" : "detections"} · most detected in this session`;
+    detail.textContent = `${Math.round(bird.confidence * 100)}% confidence · ${bird.detections} ${bird.detections === 1 ? "detection" : "detections"} · top of this report's Confidence list`;
     panel.append(label, detail);
     if (bird.photo) {
       const credit = document.createElement("span");

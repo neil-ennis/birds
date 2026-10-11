@@ -9,7 +9,6 @@ from __future__ import annotations
 import json
 import re
 import shutil
-from collections import Counter
 from datetime import datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -82,6 +81,30 @@ class FirstHeading(HTMLParser):
             self.parts.append(data)
 
 
+class RankedDetections(HTMLParser):
+    """Read species rows in the order shown in a report's detection list."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.list_depth = 0
+        self.rows: list[dict[str, str | None]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag != "div":
+            return
+        attributes = dict(attrs)
+        if self.list_depth:
+            if self.list_depth == 1 and "detection" in (attributes.get("class") or "").split():
+                self.rows.append(attributes)
+            self.list_depth += 1
+        elif attributes.get("id") == "detection-list":
+            self.list_depth = 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "div" and self.list_depth:
+            self.list_depth -= 1
+
+
 def report_heading(report: Path) -> str | None:
     parser = FirstHeading()
     parser.feed(report.read_text(encoding="utf-8"))
@@ -89,8 +112,18 @@ def report_heading(report: Path) -> str | None:
 
 
 def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None:
-    """Count detection rows by scientific name; ties use alphabetical order."""
+    """Choose the report's highest-confidence species; ties keep report order."""
     html = report.read_text(encoding="utf-8")
+    parser = RankedDetections()
+    parser.feed(html)
+    try:
+        top = max(parser.rows, key=lambda row: float(row["data-conf"]))
+        confidence = float(top["data-conf"])
+        count = int(top["data-count"])
+        ranked_scientific = top["data-sci"]
+    except (ValueError, KeyError, TypeError):
+        return None
+
     match = re.search(r"window\.SESSION_DATA\s*=\s*(\{.*?\})\s*;\s*</script>", html, re.DOTALL)
     if not match:
         return None
@@ -104,13 +137,15 @@ def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None
     valid = [item for item in detections if isinstance(item, dict) and item.get("sci") and item.get("common")]
     if not valid:
         return None
-    counts = Counter(item["sci"] for item in valid)
-    scientific = min(counts, key=lambda name: (-counts[name], name.casefold()))
-    common = next(item["common"] for item in valid if item["sci"] == scientific)
+    selected = next((item for item in valid if item["sci"].casefold() == ranked_scientific.casefold()), None)
+    if selected is None:
+        return None
+    scientific = selected["sci"]
     return {
-        "common": common,
+        "common": selected["common"],
         "scientific": scientific,
-        "detections": counts[scientific],
+        "detections": count,
+        "confidence": confidence,
         "photo": photos.get(scientific),
     }
 

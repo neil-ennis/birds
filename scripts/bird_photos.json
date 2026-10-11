@@ -35,5 +35,40 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Magpie_samcem05.jpg",
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "Myzomela sanguinolenta": {
+    "image": "images/scarlet-myzomela.jpg",
+    "author": "JJ Harrison",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Myzomela_sanguinolenta_-_Windsor_Downs_Nature_Reserve.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "Trichoglossus moluccanus": {
+    "image": "images/rainbow-lorikeet.jpg",
+    "author": "Dominic Sherony",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rainbow_Lorikeet_(Trichoglossus_moluccanus)_(31008130490).jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/"
+  },
+  "Oriolus sagittatus": {
+    "image": "images/olive-backed-oriole.jpg",
+    "author": "Patrick_K59",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Olive-backed_Oriole_(Oriolus_sagittatus)_(16640844194).jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+  },
+  "Eudynamys orientalis": {
+    "image": "images/pacific-koel.jpg",
+    "author": "Aviceda",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pacific_koel_fem_kob08.JPG",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "Sphecotheres vieilloti": {
+    "image": "images/australasian-figbird.jpg",
+    "author": "gailhampshire",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Australasian_Figbird._Sphecotheres_vieilloti_,_male_(48623361443).jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
   }
 }
