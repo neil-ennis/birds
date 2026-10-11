@@ -59,6 +59,33 @@ class LocalReferences(HTMLParser):
             self.references.update(match.group(2) for match in CSS_URL.finditer(data))
 
 
+class FirstHeading(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.in_heading = False
+        self.parts: list[str] = []
+        self.title: str | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "h1" and self.title is None:
+            self.in_heading = True
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "h1" and self.in_heading:
+            self.title = re.sub(r"\s+", " ", "".join(self.parts)).strip()
+            self.in_heading = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_heading:
+            self.parts.append(data)
+
+
+def report_heading(report: Path) -> str | None:
+    parser = FirstHeading()
+    parser.feed(report.read_text(encoding="utf-8"))
+    return parser.title
+
+
 def references_in(source: Path) -> set[str]:
     suffix = source.suffix.lower()
     if suffix not in {".css", ".html"}:
@@ -118,7 +145,8 @@ def copy_with_dependencies(source: Path, folder: Path, copied: set[Path]) -> Non
 def describe(folder: Path, report: Path) -> dict[str, str]:
     match = STAMP.search(folder.name)
     raw_title = folder.name[: match.start()] if match else folder.name
-    title = re.sub(r"\s+", " ", raw_title.replace("_", " ").replace("-", " ")).strip()
+    fallback_title = re.sub(r"\s+", " ", raw_title.replace("_", " ").replace("-", " ")).strip()
+    title = report_heading(report) or fallback_title
     session_match = re.search(r"#\d+$", folder.name)
     session = f"Session {session_match.group()}" if session_match else "Session report"
     date_label = time_label = sort_date = ""
