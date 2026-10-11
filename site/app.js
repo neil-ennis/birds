@@ -97,6 +97,19 @@ async function init() {
     document.getElementById("viewer-details").textContent = [report.dateLabel, report.timeLabel].filter(Boolean).join(" · ");
     const frame = document.getElementById("report-frame");
     frame.title = `${report.title} ${report.session} report`;
+    let sizeObserver;
+    frame.addEventListener("load", () => {
+      sizeObserver?.disconnect();
+      const body = frame.contentDocument?.body;
+      if (!body) return;
+
+      const resizeFrame = () => {
+        frame.style.height = `${Math.ceil(body.scrollHeight) + 2}px`;
+      };
+      sizeObserver = new ResizeObserver(resizeFrame);
+      sizeObserver.observe(body);
+      resizeFrame();
+    });
     frame.src = report.url;
     document.getElementById("direct-link").href = report.url;
     document.title = `${report.title} · ${report.session} · Birdsong Archive`;

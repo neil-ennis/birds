@@ -99,7 +99,7 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .direct-link { flex: none; padding-bottom: 5px; color: var(--forest); font-size: .86rem; font-weight: 700; text-decoration: none; }
 .direct-link span { margin-left: 3px; }
 .report-frame-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: white; box-shadow: var(--shadow); }
-#report-frame { display: block; width: 100%; height: max(750px, calc(100vh - 205px)); border: 0; background: white; }
+#report-frame { display: block; width: 100%; height: 750px; border: 0; background: white; }
 .error-view { min-height: 65vh; padding-block: 110px; }
 .error-view p:not(.eyebrow) { color: var(--muted); }
 .site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
@@ -127,7 +127,6 @@ h1, h2, h3, p { overflow-wrap: break-word; }
   .collection { padding-bottom: 65px; }
   .viewer { padding-block: 30px 48px; }
   .viewer-heading { align-items: start; flex-direction: column; }
-  #report-frame { height: 76vh; min-height: 620px; }
   .footer-inner { flex-direction: column; gap: 3px; }
   .photo-credit { text-align: left; }
 }
