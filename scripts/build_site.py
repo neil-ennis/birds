@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+from collections import Counter
 from datetime import datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -18,6 +19,7 @@ from urllib.parse import quote, unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "site"
 OUTPUT = ROOT / "dist"
+PHOTO_CATALOGUE = ROOT / "scripts" / "bird_photos.json"
 SKIP_FOLDERS = {".git", ".github", "site", "scripts", "dist"}
 STAMP = re.compile(r"(?P<date>\d{4}-\d{2}-\d{2})_(?P<time>\d{2}-\d{2}-\d{2})")
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
@@ -86,6 +88,33 @@ def report_heading(report: Path) -> str | None:
     return parser.title
 
 
+def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None:
+    """Count detection rows by scientific name; ties use alphabetical order."""
+    html = report.read_text(encoding="utf-8")
+    match = re.search(r"window\.SESSION_DATA\s*=\s*(\{.*?\})\s*;\s*</script>", html, re.DOTALL)
+    if not match:
+        return None
+    try:
+        detections = json.loads(match.group(1))["detections"]
+    except (ValueError, KeyError, TypeError):
+        return None
+    if not isinstance(detections, list):
+        return None
+
+    valid = [item for item in detections if isinstance(item, dict) and item.get("sci") and item.get("common")]
+    if not valid:
+        return None
+    counts = Counter(item["sci"] for item in valid)
+    scientific = min(counts, key=lambda name: (-counts[name], name.casefold()))
+    common = next(item["common"] for item in valid if item["sci"] == scientific)
+    return {
+        "common": common,
+        "scientific": scientific,
+        "detections": counts[scientific],
+        "photo": photos.get(scientific),
+    }
+
+
 def references_in(source: Path) -> set[str]:
     suffix = source.suffix.lower()
     if suffix not in {".css", ".html"}:
@@ -142,7 +171,7 @@ def copy_with_dependencies(source: Path, folder: Path, copied: set[Path]) -> Non
         copy_with_dependencies(asset, folder, copied)
 
 
-def describe(folder: Path, report: Path) -> dict[str, str]:
+def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> dict:
     match = STAMP.search(folder.name)
     raw_title = folder.name[: match.start()] if match else folder.name
     fallback_title = re.sub(r"\s+", " ", raw_title.replace("_", " ").replace("-", " ")).strip()
@@ -166,10 +195,17 @@ def describe(folder: Path, report: Path) -> dict[str, str]:
         "timeLabel": time_label,
         "sortDate": sort_date,
         "url": f"reports/{quote(folder.name, safe='')}/{quote(report.name, safe='')}",
+        "leadingBird": leading_bird(report, photos),
     }
 
 
 def build() -> None:
+    photos = json.loads(PHOTO_CATALOGUE.read_text(encoding="utf-8"))
+    for photo in photos.values():
+        image = SOURCE / photo["image"]
+        if not image.is_file() or not image.resolve().is_relative_to(SOURCE.resolve()):
+            raise ValueError(f"Missing or invalid bird photo: {photo['image']}")
+
     if OUTPUT.exists():
         if OUTPUT.is_symlink() or OUTPUT.resolve().parent != ROOT.resolve():
             raise ValueError("Refusing to replace an unexpected output directory")
@@ -185,7 +221,7 @@ def build() -> None:
             raise ValueError(f"Expected one HTML report in {folder}, found {len(html_files)}")
         report = html_files[0]
         copy_with_dependencies(report, folder, set())
-        reports.append(describe(folder, report))
+        reports.append(describe(folder, report, photos))
 
     (OUTPUT / "reports.json").write_text(
         json.dumps(reports, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

@@ -12,6 +12,10 @@ From each report folder, only the HTML report and local files it references are 
 
 The home page photo in `site/images/magpie-samcem05.jpg` is by [Aviceda](https://commons.wikimedia.org/wiki/File:Magpie_samcem05.jpg), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The original file is preserved; the page crops it for display with CSS. Keep the footer credit and licence link if reusing the photo.
 
+Each session tile shows the bird with the most detection rows in its report's `window.SESSION_DATA` (alphabetical scientific name breaks ties). The image and its photographer, source, and licence come from `scripts/bird_photos.json`. The small info button reveals the bird name, count, and credit; it works with a mouse, keyboard, or tap. Images are cropped for display with CSS.
+
+When a new session's leading species is not in `scripts/bird_photos.json`, its tile still appears automatically with a bird icon and a "Photo not yet available" note. To add its image, choose a reusable photo, place a web-sized copy under `site/images/`, then add its scientific name and attribution details to the JSON catalogue. The source and licence links in that catalogue appear in the tile's info panel.
+
 ## Publish on GitHub Pages
 
 The repository's **Settings → Pages** uses **GitHub Actions** as the publishing source. Push to `main`, then watch the **Publish Birdsong Archive** workflow under **Actions**. The public address is **https://birds.neilennis.com/**.

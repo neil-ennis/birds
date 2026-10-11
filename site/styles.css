@@ -71,16 +71,31 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .sort-field select { padding: 9px 37px 9px 13px; cursor: pointer; }
 .catalogue-status { min-height: 22px; margin: 0 0 14px; color: var(--muted); font-size: .83rem; }
 .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 20px; }
-.report-card { display: flex; flex-direction: column; min-height: 250px; padding: 25px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 2px 5px rgba(31, 57, 43, .025); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.report-card { position: relative; display: flex; flex-direction: column; min-height: 360px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 2px 5px rgba(31, 57, 43, .025); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .report-card:hover { transform: translateY(-4px); border-color: #aebfac; box-shadow: var(--shadow); }
-.card-top { display: flex; align-items: start; justify-content: space-between; gap: 15px; }
-.card-icon { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 12px; background: #eaf0df; color: var(--forest); }
+.report-card:hover, .report-card:focus-within { z-index: 2; }
+.card-media { position: relative; height: 172px; border-radius: 15px 15px 0 0; background: #e4e9dc; }
+.card-media > img { display: block; width: 100%; height: 100%; border-radius: inherit; border-bottom-left-radius: 0; border-bottom-right-radius: 0; object-fit: cover; object-position: center 38%; }
+.card-media-empty { display: grid; place-items: center; background: linear-gradient(135deg, #dfe8d4, #f0f1e8); }
+.card-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.72); color: var(--forest); }
 .card-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.card-number { color: #88978c; font-family: Georgia, "Times New Roman", serif; font-size: .9rem; }
-.card-date { margin: 24px 0 6px; color: var(--forest); font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.card-number { position: absolute; top: 13px; left: 15px; display: grid; place-items: center; min-width: 30px; height: 30px; padding: 0 7px; border-radius: 8px; background: rgba(255,254,250,.93); color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: .88rem; }
+.bird-info { position: absolute; top: 12px; right: 13px; z-index: 3; }
+.bird-info-button { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid rgba(255,255,255,.8); border-radius: 50%; background: rgba(255,254,250,.94); color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: 1rem; font-style: italic; font-weight: 700; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(23,45,34,.14); }
+.bird-info-button:hover, .bird-info-button[aria-expanded="true"] { background: var(--forest); color: white; }
+.bird-info-panel { position: absolute; top: 40px; right: 0; width: min(275px, calc(100vw - 72px)); padding: 14px 16px; border: 1px solid #d3ddce; border-radius: 11px; background: var(--surface); color: var(--ink); box-shadow: 0 15px 35px rgba(23,45,34,.18); font-size: .79rem; line-height: 1.5; }
+.bird-info-panel strong, .bird-info-panel span { display: block; }
+.bird-info-panel strong { font-size: .93rem; }
+.bird-info-panel span { margin-top: 5px; color: var(--muted); }
+.bird-info-panel a { position: relative; color: var(--forest); text-decoration-color: #9ab494; text-underline-offset: 2px; }
+.card-content { display: flex; flex: 1; flex-direction: column; padding: 18px 24px 23px; }
+.card-date { margin: 0 0 6px; color: var(--forest); font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .report-card h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.65rem; font-weight: 400; letter-spacing: -.03em; line-height: 1.2; }
-.card-session { margin: 8px 0 22px; color: var(--muted); font-size: .86rem; }
-.card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); color: var(--forest); font-size: .87rem; font-weight: 700; }
+.card-session { margin: 8px 0 20px; color: var(--muted); font-size: .86rem; }
+.card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); color: var(--forest); font-size: .87rem; font-weight: 700; text-decoration: none; }
+.card-bottom::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
+.card-bottom:focus-visible { outline: none; }
+.card-bottom:focus-visible::after { outline: 3px solid #a4bb5e; outline-offset: 4px; }
 .card-bottom .arrow { font-size: 1.3rem; line-height: 1; transition: transform .2s ease; }
 .report-card:hover .arrow { transform: translateX(3px); }
 .empty-state { padding: 55px 20px; border: 1px dashed #bdcbb9; border-radius: 16px; text-align: center; }

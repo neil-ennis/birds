@@ -1,0 +1,39 @@
+{
+  "Rhipidura rufifrons": {
+    "image": "images/rufous-fantail.jpg",
+    "author": "Jarrod",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rhipidura_rufifrons_-Royal_National_Park,_NSW,_Australia-8.jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+  },
+  "Psophodes olivaceus": {
+    "image": "images/eastern-whipbird.jpg",
+    "author": "Greg Miles",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eastern_Whipbird.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/"
+  },
+  "Lichmera indistincta": {
+    "image": "images/brown-honeyeater.jpg",
+    "position": "center top",
+    "author": "Glen Fergus",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brown_Honeyeater.jpg",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/"
+  },
+  "Gerygone mouki": {
+    "image": "images/brown-gerygone.jpg",
+    "author": "Mike's Birds",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brown_Gerygone_(31993691140).jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/"
+  },
+  "Gymnorhina tibicen": {
+    "image": "images/magpie-samcem05.jpg",
+    "position": "center top",
+    "author": "Aviceda",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Magpie_samcem05.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  }
+}
