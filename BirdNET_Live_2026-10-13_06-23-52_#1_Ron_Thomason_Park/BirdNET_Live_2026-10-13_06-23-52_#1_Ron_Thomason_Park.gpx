@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="BirdNET Live"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:birdnet="https://birdnet-team.github.io/birdnet-live-app/gpx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Ron Thomason Park</name>
+    <time>2026-10-12T20:23:52.466161Z</time>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="2.9079532623291016" fixTime="2026-10-12T20:23:40.412Z">8.08696700247959</birdnet:altitude></extensions>
+  </metadata>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:23:55.447146Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (96.2%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:23:55.447146Z</time>
+    <name>Magpie-lark</name>
+    <desc>Grallina cyanoleuca (61.9%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:23:59.732834Z</time>
+    <name>Bar-shouldered Dove</name>
+    <desc>Geopelia humeralis (74.3%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:23:59.732834Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (94.8%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:24:02.589959Z</time>
+    <name>Striated Pardalote</name>
+    <desc>Pardalotus striatus (66.3%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:24:02.589959Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (60.4%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:24:06.875646Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (90.3%)</desc>
+  </wpt>
+  <wpt lat="-27.2782089" lon="152.966059">
+    <time>2026-10-12T20:24:02.589959Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (46.0%)</desc>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:15.447021Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (91.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:12.589896Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (90.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:16.875584Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (60.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:12.589896Z</time>
+    <name>Pied Currawong</name>
+    <desc>Strepera graculina (51.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:31.161209Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (72.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:31.161209Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (93.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:44.018271Z</time>
+    <name>Noisy Miner</name>
+    <desc>Manorina melanocephala (98.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:39.732584Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (96.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:42.589709Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (72.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:45.446834Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (92.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:45.446834Z</time>
+    <name>Grey Butcherbird</name>
+    <desc>Cracticus torquatus (93.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:54.018209Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (98.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:51.161084Z</time>
+    <name>Pied Currawong</name>
+    <desc>Strepera graculina (63.7%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:51.161084Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (45.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:58.303896Z</time>
+    <name>Bar-shouldered Dove</name>
+    <desc>Geopelia humeralis (92.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:59.732459Z</time>
+    <name>Golden Whistler</name>
+    <desc>Pachycephala pectoralis (97.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:55.446771Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (69.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:24:59.732459Z</time>
+    <name>Eastern Whipbird</name>
+    <desc>Psophodes olivaceus (60.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:01.161021Z</time>
+    <name>Australian Raven</name>
+    <desc>Corvus coronoides (65.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:04.018146Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (58.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:05.446709Z</time>
+    <name>Striped Honeyeater</name>
+    <desc>Plectorhyncha lanceolata (90.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:09.732396Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (97.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:12.589521Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (97.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:11.160959Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (60.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:11.160959Z</time>
+    <name>Striated Pardalote</name>
+    <desc>Pardalotus striatus (98.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:15.446646Z</time>
+    <name>Golden Whistler</name>
+    <desc>Pachycephala pectoralis (74.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:19.732334Z</time>
+    <name>Grey Shrikethrush</name>
+    <desc>Colluricincla harmonica (69.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:21.160896Z</time>
+    <name>Eurasian Whimbrel</name>
+    <desc>Numenius phaeopus (98.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:18.303771Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (61.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:26.875146Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (98.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:28.303709Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (90.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:29.732271Z</time>
+    <name>Bar-shouldered Dove</name>
+    <desc>Geopelia humeralis (96.7%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:28.303709Z</time>
+    <name>Rufous Whistler</name>
+    <desc>Pachycephala rufiventris (60.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:31.160834Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (77.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:34.017959Z</time>
+    <name>Little Friarbird</name>
+    <desc>Philemon citreogularis (74.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:31.160834Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (49.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:35.446521Z</time>
+    <name>Masked Lapwing</name>
+    <desc>Vanellus miles (98.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:35.446521Z</time>
+    <name>Grey Shrikethrush</name>
+    <desc>Colluricincla harmonica (78.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:39.732209Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (99.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:36.875084Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (97.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:44.017896Z</time>
+    <name>Brown Honeyeater</name>
+    <desc>Lichmera indistincta (73.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:42.589334Z</time>
+    <name>Bar-shouldered Dove</name>
+    <desc>Geopelia humeralis (97.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:49.732146Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (69.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:46.875021Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (88.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:51.160709Z</time>
+    <name>Striated Pardalote</name>
+    <desc>Pardalotus striatus (45.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:25:55.446396Z</time>
+    <name>Striated Pardalote</name>
+    <desc>Pardalotus striatus (53.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:02.589209Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (82.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:05.446334Z</time>
+    <name>Grey Shrikethrush</name>
+    <desc>Colluricincla harmonica (76.7%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:04.017771Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (90.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:04.017771Z</time>
+    <name>Brown Honeyeater</name>
+    <desc>Lichmera indistincta (46.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:12.589146Z</time>
+    <name>Rufous Whistler</name>
+    <desc>Pachycephala rufiventris (61.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:08.303459Z</time>
+    <name>Brown Honeyeater</name>
+    <desc>Lichmera indistincta (48.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:12.589146Z</time>
+    <name>Willie Wagtail</name>
+    <desc>Rhipidura leucophrys (44.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:11.160584Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (93.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:15.446271Z</time>
+    <name>Magpie-lark</name>
+    <desc>Grallina cyanoleuca (61.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:14.017709Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (52.7%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:15.446271Z</time>
+    <name>Brown Honeyeater</name>
+    <desc>Lichmera indistincta (53.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:24.017646Z</time>
+    <name>Grey Shrikethrush</name>
+    <desc>Colluricincla harmonica (91.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:24.017646Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (67.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:25.446209Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (55.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:22.589084Z</time>
+    <name>Brown Honeyeater</name>
+    <desc>Lichmera indistincta (65.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:32.589021Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (94.7%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:34.017584Z</time>
+    <name>Little Friarbird</name>
+    <desc>Philemon citreogularis (67.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:36.874709Z</time>
+    <name>Pied Butcherbird</name>
+    <desc>Cracticus nigrogularis (59.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:36.874709Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (83.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:39.731834Z</time>
+    <name>Australasian Figbird</name>
+    <desc>Sphecotheres vieilloti (77.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:36.874709Z</time>
+    <name>Bar-shouldered Dove</name>
+    <desc>Geopelia humeralis (95.9%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:41.160396Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (90.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:41.160396Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (78.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:41.160396Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (92.1%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:48.303209Z</time>
+    <name>Fan-tailed Cuckoo</name>
+    <desc>Cacomantis flabelliformis (96.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:48.303209Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (95.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:48.303209Z</time>
+    <name>Pied Currawong</name>
+    <desc>Strepera graculina (55.2%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.278805" lon="152.9659928">
+    <ele>6.4</ele>
+    <time>2026-10-12T20:26:49.731771Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (95.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783663" lon="152.9638185">
+    <ele>7.4</ele>
+    <time>2026-10-12T20:26:52.588896Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (54.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="2.771029233932495" fixTime="2026-10-12T20:26:54.908Z">7.3849452753829326</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783663" lon="152.9638185">
+    <ele>7.4</ele>
+    <time>2026-10-12T20:26:58.303146Z</time>
+    <name>Little Friarbird</name>
+    <desc>Philemon citreogularis (83.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="2.771029233932495" fixTime="2026-10-12T20:26:54.908Z">7.3849452753829326</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783517" lon="152.9635603">
+    <ele>7.5</ele>
+    <time>2026-10-12T20:27:09.731646Z</time>
+    <name>Eastern Whipbird</name>
+    <desc>Psophodes olivaceus (92.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.492840528488159" fixTime="2026-10-12T20:27:08.123Z">7.523688756940068</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783517" lon="152.9635603">
+    <ele>7.5</ele>
+    <time>2026-10-12T20:27:09.731646Z</time>
+    <name>Lewin&apos;s Honeyeater</name>
+    <desc>Meliphaga lewinii (87.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.492840528488159" fixTime="2026-10-12T20:27:08.123Z">7.523688756940068</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783517" lon="152.9635603">
+    <ele>7.5</ele>
+    <time>2026-10-12T20:27:09.731646Z</time>
+    <name>Golden Whistler</name>
+    <desc>Pachycephala pectoralis (60.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.492840528488159" fixTime="2026-10-12T20:27:08.123Z">7.523688756940068</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783517" lon="152.9635603">
+    <ele>7.5</ele>
+    <time>2026-10-12T20:27:09.731646Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (54.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.492840528488159" fixTime="2026-10-12T20:27:08.123Z">7.523688756940068</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783517" lon="152.9635603">
+    <ele>7.5</ele>
+    <time>2026-10-12T20:27:12.588771Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (71.0%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.492840528488159" fixTime="2026-10-12T20:27:08.123Z">7.523688756940068</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:11.160209Z</time>
+    <name>Peaceful Dove</name>
+    <desc>Geopelia placida (49.6%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:14.017334Z</time>
+    <name>Olive-backed Oriole</name>
+    <desc>Oriolus sagittatus (82.4%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:12.588771Z</time>
+    <name>Rainbow Lorikeet</name>
+    <desc>Trichoglossus moluccanus (47.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:16.874459Z</time>
+    <name>Little Friarbird</name>
+    <desc>Philemon citreogularis (51.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:18.303021Z</time>
+    <name>Australian Magpie</name>
+    <desc>Gymnorhina tibicen (96.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783592" lon="152.9633769">
+    <ele>9.2</ele>
+    <time>2026-10-12T20:27:19.731584Z</time>
+    <name>Torresian Crow</name>
+    <desc>Corvus orru (52.8%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.8345565795898438" fixTime="2026-10-12T20:27:18.090Z">9.18608540104195</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783386" lon="152.9631896">
+    <ele>9.1</ele>
+    <time>2026-10-12T20:27:25.445834Z</time>
+    <name>Grey Butcherbird</name>
+    <desc>Cracticus torquatus (99.3%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.9186534881591797" fixTime="2026-10-12T20:27:28.106Z">9.097563325393665</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783386" lon="152.9631896">
+    <ele>9.1</ele>
+    <time>2026-10-12T20:27:24.017271Z</time>
+    <name>Noisy Miner</name>
+    <desc>Manorina melanocephala (63.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.9186534881591797" fixTime="2026-10-12T20:27:28.106Z">9.097563325393665</birdnet:altitude></extensions>
+  </wpt>
+  <wpt lat="-27.2783386" lon="152.9631896">
+    <ele>9.1</ele>
+    <time>2026-10-12T20:27:31.160084Z</time>
+    <name>Noisy Friarbird</name>
+    <desc>Philemon corniculatus (70.5%)</desc>
+    <extensions><birdnet:altitude reference="unknown" accuracyMeters="3.9186534881591797" fixTime="2026-10-12T20:27:28.106Z">9.097563325393665</birdnet:altitude></extensions>
+  </wpt>
+  <trk>
+    <name>Ron Thomason Park</name>
+    <trkseg>
+      <trkpt lat="-27.278805" lon="152.9659928"><ele>6.4</ele><time>2026-10-12T20:24:15.129Z</time><extensions><birdnet:altitude reference="unknown" accuracyMeters="3.1304421424865723" fixTime="2026-10-12T20:24:15.129Z">6.361885062351519</birdnet:altitude></extensions></trkpt>
+      <trkpt lat="-27.2783663" lon="152.9638185"><ele>7.4</ele><time>2026-10-12T20:26:54.908Z</time><extensions><birdnet:altitude reference="unknown" accuracyMeters="2.771029233932495" fixTime="2026-10-12T20:26:54.908Z">7.3849452753829326</birdnet:altitude></extensions></trkpt>
+      <trkpt lat="-27.2783439" lon="152.9629386"><ele>14.6</ele><time>2026-10-12T20:27:41.271Z</time><extensions><birdnet:altitude reference="unknown" accuracyMeters="23.402963638305664" fixTime="2026-10-12T20:27:41.271Z">14.581775420319808</birdnet:altitude></extensions></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
