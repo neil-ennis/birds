@@ -7,8 +7,9 @@
   <meta name="description" content="Browse BirdNET Live recordings and explore each session report.">
   <title>Birdsong Archive</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261013-1">
-  <script src="./app.js?v=20261013-1" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=20261013-4">
+  <script src="./comments.js?v=20261013-1" defer></script>
+  <script src="./app.js?v=20261013-4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,7 +24,11 @@
         </span>
         <span>Birdsong <strong>Archive</strong></span>
       </a>
-      <span class="masthead-note">A collection of BirdNET Live reports</span>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./">Recordings</a>
+        <a href="./about/">About</a>
+        <a href="./contact/">Contact</a>
+      </nav>
     </div>
   </header>
 
@@ -90,6 +95,13 @@
       <div class="report-frame-wrap">
         <iframe id="report-frame" title="BirdNET Live session report" loading="eager"></iframe>
       </div>
+      <section class="comments-section" aria-labelledby="comments-title">
+        <p class="eyebrow">Conversation</p>
+        <h2 id="comments-title">Comments</h2>
+        <p>What did you hear or notice in this recording?</p>
+        <p id="comments-preview-note" hidden>The comment form is available on the published site.</p>
+        <comentario-comments theme="light"></comentario-comments>
+      </section>
     </section>
 
     <section id="error-view" class="error-view shell" hidden>

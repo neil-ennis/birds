@@ -10,6 +10,8 @@ import json
 import re
 import shutil
 from datetime import datetime
+from hashlib import sha256
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
@@ -224,6 +226,7 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
 
     return {
         "id": folder.name,
+        "shortId": sha256(folder.name.encode("utf-8")).hexdigest()[:12],
         "title": title or "Bird recording",
         "session": session,
         "dateLabel": date_label,
@@ -232,6 +235,20 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
         "url": f"reports/{quote(folder.name, safe='')}/{quote(report.name, safe='')}",
         "leadingBird": leading_bird(report, photos),
     }
+
+
+def publish_session_pages(reports: list[dict]) -> None:
+    template = (SOURCE / "index.html").read_text(encoding="utf-8")
+    for report in reports:
+        page = template.replace(
+            '  <meta charset="utf-8">',
+            f'  <meta charset="utf-8">\n  <base href="../../">\n  <meta name="report-id" content="{escape(report["id"], quote=True)}">',
+            1,
+        )
+        page = page.replace('href="#main"', f'href="./s/{report["shortId"]}/#main"', 1)
+        destination = OUTPUT / "s" / report["shortId"] / "index.html"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(page, encoding="utf-8")
 
 
 def build() -> None:
@@ -248,6 +265,7 @@ def build() -> None:
     shutil.copytree(SOURCE, OUTPUT)
 
     reports = []
+    short_ids = set()
     for folder in sorted(ROOT.iterdir()):
         if not folder.is_dir() or folder.name.startswith(".") or folder.name in SKIP_FOLDERS:
             continue
@@ -256,7 +274,13 @@ def build() -> None:
             raise ValueError(f"Expected one HTML report in {folder}, found {len(html_files)}")
         report = html_files[0]
         copy_with_dependencies(report, folder, set())
-        reports.append(describe(folder, report, photos))
+        item = describe(folder, report, photos)
+        if item["shortId"] in short_ids:
+            raise ValueError(f"Session ID collision: {item['shortId']}")
+        short_ids.add(item["shortId"])
+        reports.append(item)
+
+    publish_session_pages(reports)
 
     (OUTPUT / "reports.json").write_text(
         json.dumps(reports, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

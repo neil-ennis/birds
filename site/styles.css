@@ -33,7 +33,9 @@ svg { display: block; }
 .brand strong { font-weight: 800; }
 .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--forest); color: var(--lime); }
 .brand-mark svg { width: 29px; }
-.masthead-note { color: var(--muted); font-size: .85rem; }
+.site-nav { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.site-nav a { padding: 8px 13px; border-radius: 999px; color: var(--forest); font-size: .86rem; font-weight: 700; text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { background: #e9eee2; }
 
 .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(36px, 6vw, 96px); align-items: center; padding-block: clamp(54px, 7vw, 104px) clamp(70px, 8vw, 118px); }
 .eyebrow { margin: 0 0 15px; color: var(--forest); font-size: .76rem; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
@@ -117,6 +119,45 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .direct-link span { margin-left: 3px; }
 .report-frame-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: white; box-shadow: var(--shadow); }
 #report-frame { display: block; width: 100%; height: 750px; border: 0; background: white; }
+.comments-section { margin-top: 30px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--line); border-radius: 15px; background: var(--surface); box-shadow: var(--shadow); }
+.comments-section .eyebrow { margin-bottom: 5px; }
+.comments-section h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 400; letter-spacing: -.04em; }
+.comments-section p:not(.eyebrow) { margin: 7px 0 0; color: var(--muted); font-size: .9rem; }
+.comments-section comentario-comments { display: block; margin-top: 26px; }
+.about-intro { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(280px, .92fr); gap: clamp(40px, 6vw, 90px); align-items: start; padding-block: clamp(58px, 7vw, 98px) 66px; }
+.about-story h1 { margin: 0 0 26px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.9rem, 5vw, 4.6rem); font-weight: 400; letter-spacing: -.055em; line-height: 1.07; }
+.about-story > p:not(.eyebrow) { max-width: 66ch; margin: 0 0 22px; color: var(--muted); font-size: 1.02rem; line-height: 1.8; }
+.about-story > p.about-lead { color: var(--ink); font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.3rem, 2vw, 1.55rem); line-height: 1.5; }
+.about-story a, .about-photo a { color: var(--forest); text-decoration-color: #9ab494; text-underline-offset: 3px; }
+.about-story a:hover, .about-photo a:hover { text-decoration-color: currentColor; }
+.about-photo { margin: 16px 0 0; }
+.about-photo img { display: block; width: 100%; aspect-ratio: 4 / 5; border: 8px solid var(--surface); border-radius: 45% 45% 18px 18px; object-fit: cover; object-position: 42% center; box-shadow: var(--shadow); }
+.about-photo figcaption { margin-top: 14px; color: var(--muted); font-size: .75rem; line-height: 1.55; }
+.about-comments { max-width: 920px; padding-bottom: 96px; }
+.contact-layout { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: clamp(38px, 7vw, 100px); align-items: start; min-height: 70vh; padding-block: clamp(60px, 8vw, 108px) 100px; }
+.contact-copy h1 { margin: 0 0 24px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 5.4vw, 4.9rem); font-weight: 400; letter-spacing: -.055em; line-height: 1.08; }
+.contact-lead { max-width: 38ch; margin: 0; color: var(--muted); font-size: clamp(1.08rem, 1.6vw, 1.2rem); line-height: 1.8; }
+.contact-note { display: flex; gap: 16px; max-width: 420px; margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; line-height: 1.7; }
+.contact-note > span { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #e9eee2; color: var(--forest); font-family: Georgia, "Times New Roman", serif; font-size: 1.4rem; }
+.contact-note p { margin: 0; }
+.contact-note a, .contact-fallback a { color: var(--forest); text-decoration-color: #9ab494; text-underline-offset: 3px; }
+.contact-note a:hover, .contact-fallback a:hover { text-decoration-color: currentColor; }
+.contact-card { padding: clamp(26px, 4vw, 46px); border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+.contact-card .eyebrow { margin-bottom: 7px; }
+.contact-card h2 { margin: 0 0 29px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 400; letter-spacing: -.045em; }
+.contact-field { margin-bottom: 21px; }
+.contact-field label { display: block; margin-bottom: 8px; color: var(--forest); font-size: .85rem; font-weight: 700; }
+.contact-field input, .contact-field textarea { display: block; width: 100%; padding: 13px 15px; border: 1px solid #cdd8ca; border-radius: 10px; background: white; color: var(--ink); font: inherit; }
+.contact-field textarea { min-height: 170px; resize: vertical; }
+.contact-field input:hover, .contact-field textarea:hover { border-color: #a8bea4; }
+.contact-submit { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-width: 180px; margin-top: 3px; padding: 13px 19px; border: 1px solid var(--forest); border-radius: 999px; background: var(--forest); color: white; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+.contact-submit:hover { background: #173a2e; }
+.contact-submit:disabled { cursor: wait; opacity: .7; }
+.contact-status { margin: 20px 0 0; padding: 13px 16px; border-radius: 10px; font-size: .87rem; line-height: 1.5; }
+.contact-status-sending { background: #eef1e8; color: var(--forest); }
+.contact-status-success { background: #e7f1dd; color: #244c32; }
+.contact-status-error { background: #faf0dc; color: #674825; }
+.contact-fallback { margin: 24px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.6; }
 .error-view { min-height: 65vh; padding-block: 110px; }
 .error-view p:not(.eyebrow) { color: var(--muted); }
 .site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
@@ -128,16 +169,29 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 @media (max-width: 800px) {
   .hero { grid-template-columns: 1fr; padding-block: 60px 75px; }
   .hero-photo { width: min(72%, 340px); justify-self: center; }
+  .about-intro { grid-template-columns: 1fr; gap: 20px; }
+  .about-photo { width: min(100%, 550px); margin: 0 auto; }
+  .about-photo img { aspect-ratio: 4 / 3; border-radius: 42% 42% 18px 18px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 38px; }
+  .contact-note { margin-top: 28px; }
   .section-heading > p { display: none; }
 }
 @media (max-width: 560px) {
   .shell { width: min(100% - 32px, 1160px); }
-  .masthead-inner { min-height: 68px; }
-  .masthead-note { display: none; }
+  .masthead-inner { min-height: 68px; gap: 8px; }
+  .brand { font-size: .95rem; }
+  .brand-mark { width: 32px; height: 32px; }
+  .brand-mark svg { width: 25px; }
+  .site-nav { gap: 0; }
+  .site-nav a { padding: 8px 9px; font-size: .8rem; }
   .hero { gap: 36px; padding-block: 48px 60px; }
   .hero h1 { font-size: clamp(2.45rem, 10vw, 3.45rem); }
   .hero-photo { width: min(80%, 280px); }
   .hero-stats { gap: 22px; }
+  .about-intro { padding-block: 52px 42px; }
+  .about-comments { padding-bottom: 65px; }
+  .contact-layout { padding-block: 50px 66px; }
+  .contact-card { padding: 25px 22px; }
   .toolbar { align-items: stretch; flex-direction: column; }
   .search-field { max-width: none; }
   .sort-field { justify-content: space-between; }
@@ -146,6 +200,10 @@ h1, h2, h3, p { overflow-wrap: break-word; }
   .viewer-heading { align-items: start; flex-direction: column; }
   .footer-inner { flex-direction: column; gap: 3px; }
   .photo-credit { text-align: left; }
+}
+@media (max-width: 480px) {
+  .masthead-inner { flex-wrap: wrap; padding-block: 12px; }
+  .site-nav { width: 100%; justify-content: flex-start; margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

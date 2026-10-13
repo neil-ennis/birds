@@ -146,7 +146,7 @@ function makeCard(report, number) {
   session.textContent = report.session;
   const bottom = document.createElement("a");
   bottom.className = "card-bottom";
-  bottom.href = `./?report=${encodeURIComponent(report.id)}`;
+  bottom.href = `./s/${report.shortId}/`;
   bottom.setAttribute("aria-label", `Open ${report.title}, ${report.session}, ${report.dateLabel}`);
   bottom.innerHTML = '<span>View report</span><span class="arrow" aria-hidden="true">→</span>';
   content.append(date, title, session, bottom);
@@ -192,7 +192,8 @@ function renderCatalogue(reports) {
 }
 
 async function init() {
-  const requestedId = new URLSearchParams(window.location.search).get("report");
+  const canonicalId = document.querySelector('meta[name="report-id"]')?.content;
+  const requestedId = canonicalId ?? new URLSearchParams(window.location.search).get("report");
   let reports;
   try {
     const response = await fetch("./reports.json");
@@ -209,6 +210,10 @@ async function init() {
     const report = reports.find(item => item.id === requestedId);
     if (!report) {
       showError("This report could not be found.", "The link may be out of date.");
+      return;
+    }
+    if (!canonicalId) {
+      window.location.replace(new URL(`./s/${report.shortId}/`, document.baseURI));
       return;
     }
     document.getElementById("viewer-title").textContent = report.title;
@@ -233,6 +238,7 @@ async function init() {
     document.getElementById("direct-link").href = report.url;
     document.title = `${report.title} · ${report.session} · Birdsong Archive`;
     showOnly(viewerView);
+    window.activateBirdComments();
     return;
   }
 
