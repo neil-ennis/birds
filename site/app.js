@@ -9,6 +9,30 @@ const grid = document.getElementById("report-grid");
 const emptyState = document.getElementById("empty-state");
 const status = document.getElementById("catalogue-status");
 
+const heroQuotes = [
+  { text: "The bluebird carries the sky on his back.", author: "Henry David Thoreau", source: "https://www.walden.org/log-entry/3-april-1852/" },
+  { text: "Hope is the thing with feathers.", author: "Emily Dickinson", source: "https://www.poetryfoundation.org/poems/42889/hope-is-the-thing-with-feathers-314" },
+  { text: "The bird wishes it were a cloud. The cloud wishes it were a bird.", author: "Rabindranath Tagore", source: "https://www.gutenberg.org/files/6524/6524-h/6524-h.htm" },
+  { text: "The bird-song is the echo of the morning light back from the earth.", author: "Rabindranath Tagore", source: "https://www.gutenberg.org/files/6524/6524-h/6524-h.htm" },
+  { text: "No bird soars too high if he soars with his own wings.", author: "William Blake", source: "https://en.wikisource.org/wiki/Proverbs_of_Hell" },
+  { text: "Thrice welcome, darling of the Spring!", author: "William Wordsworth", source: "https://www.poetryfoundation.org/poems/45562/to-the-cuckoo" },
+  { text: "And singing still dost soar, and soaring ever singest.", author: "Percy Bysshe Shelley", source: "https://www.poetryfoundation.org/poems/45146/to-a-skylark" },
+  { text: "With the first hints of spring came the brave little bluebirds…", author: "John Muir", source: "https://www.yosemite.ca.us/john_muir_writings/the_story_of_my_boyhood_and_youth/chapter_4.html" }
+];
+
+function showRandomQuote() {
+  const quote = heroQuotes[Math.floor(Math.random() * heroQuotes.length)];
+  document.getElementById("hero-title").textContent = `“${quote.text}”`;
+  const source = document.getElementById("hero-quote-source");
+  source.textContent = quote.author;
+  source.href = quote.source;
+}
+
+showRandomQuote();
+window.addEventListener("pageshow", event => {
+  if (event.persisted) showRandomQuote();
+});
+
 function showOnly(view) {
   catalogueView.hidden = view !== catalogueView;
   viewerView.hidden = view !== viewerView;
