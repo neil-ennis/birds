@@ -7,6 +7,7 @@ folders themselves remain untouched.
 from __future__ import annotations
 
 import json
+import math
 import re
 import shutil
 from datetime import datetime
@@ -114,18 +115,10 @@ def report_heading(report: Path) -> str | None:
 
 
 def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None:
-    """Choose the report's highest-confidence species; ties keep report order."""
+    """Choose the highest-confidence species with a usable photo."""
     html = report.read_text(encoding="utf-8")
     parser = RankedDetections()
     parser.feed(html)
-    try:
-        top = max(parser.rows, key=lambda row: float(row["data-conf"]))
-        confidence = float(top["data-conf"])
-        count = int(top["data-count"])
-        ranked_scientific = top["data-sci"]
-    except (ValueError, KeyError, TypeError):
-        return None
-
     match = re.search(r"window\.SESSION_DATA\s*=\s*(\{.*?\})\s*;\s*</script>", html, re.DOTALL)
     if not match:
         return None
@@ -139,17 +132,38 @@ def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None
     valid = [item for item in detections if isinstance(item, dict) and item.get("sci") and item.get("common")]
     if not valid:
         return None
-    selected = next((item for item in valid if item["sci"].casefold() == ranked_scientific.casefold()), None)
-    if selected is None:
+    by_scientific = {item["sci"].casefold(): item for item in valid}
+    ranked = []
+    for row in parser.rows:
+        try:
+            confidence = float(row["data-conf"])
+            count = int(row["data-count"])
+            scientific = row["data-sci"].casefold()
+        except (ValueError, KeyError, TypeError, AttributeError):
+            continue
+        if not math.isfinite(confidence) or scientific not in by_scientific:
+            continue
+        detected = by_scientific[scientific]
+        ranked.append({
+            "common": detected["common"],
+            "scientific": detected["sci"],
+            "detections": count,
+            "confidence": confidence,
+        })
+    if not ranked:
         return None
-    scientific = selected["sci"]
-    return {
-        "common": selected["common"],
-        "scientific": scientific,
-        "detections": count,
-        "confidence": confidence,
-        "photo": photos.get(scientific),
-    }
+    ranked.sort(key=lambda bird: bird["confidence"], reverse=True)
+    missing_photos = []
+    for bird in ranked:
+        photo = photos.get(bird["scientific"])
+        if photo:
+            return {**bird, "photo": photo, "missingPhotos": missing_photos}
+        missing_photos.append({
+            "common": bird["common"],
+            "scientific": bird["scientific"],
+            "confidence": bird["confidence"],
+        })
+    return {**ranked[0], "photo": None, "missingPhotos": missing_photos}
 
 
 def references_in(source: Path) -> set[str]:
@@ -253,10 +267,17 @@ def publish_session_pages(reports: list[dict]) -> None:
 
 def build() -> None:
     photos = json.loads(PHOTO_CATALOGUE.read_text(encoding="utf-8"))
-    for photo in photos.values():
-        image = SOURCE / photo["image"]
-        if not image.is_file() or not image.resolve().is_relative_to(SOURCE.resolve()):
-            raise ValueError(f"Missing or invalid bird photo: {photo['image']}")
+    usable_photos = {}
+    required_credit = ("image", "author", "sourceUrl", "license", "licenseUrl")
+    for scientific, photo in photos.items():
+        if not isinstance(photo, dict) or not all(photo.get(field) for field in required_credit):
+            print(f"Photo catalogue entry needs image and credit: {scientific}")
+            continue
+        image = (SOURCE / photo["image"]).resolve()
+        if not image.is_relative_to(SOURCE.resolve()) or not image.is_file():
+            print(f"Photo catalogue image is missing or invalid: {scientific}")
+            continue
+        usable_photos[scientific] = photo
 
     if OUTPUT.exists():
         if OUTPUT.is_symlink() or OUTPUT.resolve().parent != ROOT.resolve():
@@ -274,11 +295,18 @@ def build() -> None:
             raise ValueError(f"Expected one HTML report in {folder}, found {len(html_files)}")
         report = html_files[0]
         copy_with_dependencies(report, folder, set())
-        item = describe(folder, report, photos)
+        item = describe(folder, report, usable_photos)
         if item["shortId"] in short_ids:
             raise ValueError(f"Session ID collision: {item['shortId']}")
         short_ids.add(item["shortId"])
         reports.append(item)
+
+    photo_needs = {}
+    for report in reports:
+        for bird in (report["leadingBird"] or {}).get("missingPhotos", []):
+            photo_needs[bird["scientific"]] = bird["common"]
+    for scientific, common in sorted(photo_needs.items()):
+        print(f"::warning title=Bird photo needed::{common} ({scientific}) was skipped because it has no usable catalogued photo")
 
     publish_session_pages(reports)
 

@@ -16,9 +16,9 @@ The home page photo in `site/images/magpie-samcem05.jpg` is by [Aviceda](https:/
 
 The About page uses an existing rainbow lorikeet photo from `site/images/`, with its source, author, licence, and crop notice in the caption.
 
-Each session tile shows the species with the highest certainty in the report's Confidence list. If scores tie, the report's displayed order breaks the tie. The image and its photographer, source, and licence come from `scripts/bird_photos.json`. The small info button reveals the bird name, confidence, count, and credit; it works with a mouse, keyboard, or tap. Images are cropped for display with CSS.
+Each session tile shows the highest-certainty species in the report's Confidence list **that has a usable catalogued photo**. If scores tie, the report's displayed order breaks the tie. The image and its photographer, source, and licence come from `scripts/bird_photos.json`. The small info button reveals the selected bird's name, confidence, count, and credit; it works with a mouse, keyboard, or tap. Images are cropped for display with CSS.
 
-When a new session's leading species is not in `scripts/bird_photos.json`, its tile still appears automatically with a bird icon and a "Photo not yet available" note. To add its image, choose a reusable photo, place a web-sized copy under `site/images/`, then add its scientific name and attribution details to the JSON catalogue. The source and licence links in that catalogue appear in the tile's info panel.
+Species ranked above the selected bird but missing a usable photo are recorded in `reports.json` under `leadingBird.missingPhotos` and listed as warnings in the GitHub Actions build log. This provides a queue for future photos while the new session still publishes. If no species in the report has a usable photo, its tile uses the bird icon and a "Photo not yet available" note. To add a species photo, choose a reusable image, place a web-sized copy under `site/images/`, then add its scientific name and attribution details to the JSON catalogue. The source and licence links appear in the tile's info panel.
 
 ## Session links and comments
 
