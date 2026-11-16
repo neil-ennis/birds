@@ -114,8 +114,19 @@ def report_heading(report: Path) -> str | None:
     return parser.title
 
 
-def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None:
-    """Choose the highest-confidence species with a usable photo."""
+def read_species_selection(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    species = path.read_text(encoding="utf-8-sig").strip()
+    if not species or "\n" in species or "\r" in species:
+        raise ValueError(f"{path}: expected one scientific species name")
+    return species
+
+
+def leading_bird(
+    report: Path, photos: dict[str, dict[str, str]], selected_species: str | None = None
+) -> dict | None:
+    """Choose the requested species, or the highest-confidence species with a photo."""
     html = report.read_text(encoding="utf-8")
     parser = RankedDetections()
     parser.feed(html)
@@ -153,6 +164,19 @@ def leading_bird(report: Path, photos: dict[str, dict[str, str]]) -> dict | None
     if not ranked:
         return None
     ranked.sort(key=lambda bird: bird["confidence"], reverse=True)
+    if selected_species:
+        selected = next(
+            (bird for bird in ranked if bird["scientific"].casefold() == selected_species.casefold()),
+            None,
+        )
+        if selected is None:
+            raise ValueError(f"{report.parent}: species {selected_species!r} is not in the report")
+        return {
+            **selected,
+            "photo": photos.get(selected["scientific"]),
+            "manualSelection": True,
+            "missingPhotos": [],
+        }
     missing_photos = []
     for bird in ranked:
         photo = photos.get(bird["scientific"])
@@ -238,6 +262,13 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
         time_label = recorded.strftime("%I:%M %p").lstrip("0").lower()
         sort_date = recorded.isoformat()
 
+    title_species = read_species_selection(folder / "title-species.txt")
+    tile_species = read_species_selection(folder / "tile-species.txt")
+    selected = title_species or tile_species
+    bird = leading_bird(report, photos, selected)
+    if title_species and bird:
+        title = bird["common"]
+
     return {
         "id": folder.name,
         "shortId": sha256(folder.name.encode("utf-8")).hexdigest()[:12],
@@ -247,7 +278,7 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
         "timeLabel": time_label,
         "sortDate": sort_date,
         "url": f"reports/{quote(folder.name, safe='')}/{quote(report.name, safe='')}",
-        "leadingBird": leading_bird(report, photos),
+        "leadingBird": bird,
     }
 
 
@@ -305,6 +336,9 @@ def build() -> None:
     for report in reports:
         for bird in (report["leadingBird"] or {}).get("missingPhotos", []):
             photo_needs[bird["scientific"]] = bird["common"]
+        selected = report["leadingBird"]
+        if selected and selected.get("manualSelection") and not selected["photo"]:
+            photo_needs[selected["scientific"]] = selected["common"]
     for scientific, common in sorted(photo_needs.items()):
         print(f"::warning title=Bird photo needed::{common} ({scientific}) was skipped because it has no usable catalogued photo")
 

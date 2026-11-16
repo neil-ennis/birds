@@ -77,5 +77,27 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Grey_butcherbird.jpg",
     "license": "CC BY 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+  },
+  "Dicrurus bracteatus": {
+    "image": "images/spangled-drongo.jpg",
+    "position": "center 20%",
+    "author": "Glen Fergus",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spangled_Drongo.jpg",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/"
+  },
+  "Todiramphus sanctus": {
+    "image": "images/sacred-kingfisher.jpg",
+    "author": "Toby Hudson",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sacred_Kingfisher.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "Meliphaga lewinii": {
+    "image": "images/lewins-honeyeater.jpg",
+    "author": "Glen Fergus",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lewins_Honeyeater.jpg",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
   }
 }
