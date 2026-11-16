@@ -251,7 +251,13 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
     raw_title = folder.name[: match.start()] if match else folder.name
     fallback_title = re.sub(r"\s+", " ", raw_title.replace("_", " ").replace("-", " ")).strip()
     title = report_heading(report) or fallback_title
-    session_match = re.search(r"#\d+$", folder.name)
+    # Older report headings sometimes repeat the recording date after the place.
+    title = re.sub(
+        r"\.?\s+(?:\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}|[A-Za-z]{3,9}\s+\d{4})\.?$",
+        "",
+        title,
+    ).strip(" .")
+    session_match = re.search(r"#\d+(?=_|$)", folder.name)
     session = f"Session {session_match.group()}" if session_match else "Session report"
     date_label = time_label = sort_date = ""
     if match:
@@ -266,8 +272,6 @@ def describe(folder: Path, report: Path, photos: dict[str, dict[str, str]]) -> d
     tile_species = read_species_selection(folder / "tile-species.txt")
     selected = title_species or tile_species
     bird = leading_bird(report, photos, selected)
-    if title_species and bird:
-        title = bird["common"]
 
     return {
         "id": folder.name,

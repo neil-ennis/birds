@@ -144,6 +144,9 @@ function makeCard(report, number) {
   date.textContent = report.dateLabel || "Undated session";
   const title = document.createElement("h3");
   title.textContent = report.title;
+  const species = document.createElement("p");
+  species.className = "card-species";
+  species.textContent = bird?.common || "Species unavailable";
   const session = document.createElement("p");
   session.className = "card-session";
   session.textContent = report.session;
@@ -152,7 +155,7 @@ function makeCard(report, number) {
   bottom.href = `./s/${report.shortId}/`;
   bottom.setAttribute("aria-label", `Open ${report.title}, ${report.session}, ${report.dateLabel}`);
   bottom.innerHTML = '<span>View report</span><span class="arrow" aria-hidden="true">→</span>';
-  content.append(date, title, session, bottom);
+  content.append(date, title, species, session, bottom);
   card.append(media, content);
   return card;
 }
@@ -179,7 +182,7 @@ document.addEventListener("keydown", event => {
 function renderCatalogue(reports) {
   const query = searchInput.value.trim().toLocaleLowerCase();
   const visible = reports.filter(report =>
-    `${report.title} ${report.session} ${report.id} ${report.dateLabel}`.toLocaleLowerCase().includes(query)
+    `${report.title} ${report.leadingBird?.common || ""} ${report.session} ${report.id} ${report.dateLabel}`.toLocaleLowerCase().includes(query)
   );
   const direction = sortInput.value === "oldest" ? 1 : -1;
   visible.sort((a, b) => sortInput.value === "name"
@@ -220,6 +223,7 @@ async function init() {
       return;
     }
     document.getElementById("viewer-title").textContent = report.title;
+    document.getElementById("viewer-species").textContent = report.leadingBird?.common || "Species unavailable";
     document.getElementById("viewer-kicker").textContent = report.session;
     document.getElementById("viewer-details").textContent = [report.dateLabel, report.timeLabel].filter(Boolean).join(" · ");
     const frame = document.getElementById("report-frame");
