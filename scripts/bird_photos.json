@@ -99,5 +99,19 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lewins_Honeyeater.jpg",
     "license": "CC BY 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+  },
+  "Colluricincla harmonica": {
+    "image": "images/grey-shrikethrush.jpg",
+    "author": "JJ Harrison",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Grey_Shrikethrush_4084.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  "Dicaeum hirundinaceum": {
+    "image": "images/mistletoebird.jpg",
+    "author": "Jim Bendon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mistletoe_bird_male_2.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/"
   }
 }
