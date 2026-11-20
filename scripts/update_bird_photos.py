@@ -26,6 +26,8 @@ MAX_IMAGE_BYTES = 10 * 1024 * 1024
 IMAGE_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}
 LICENSE_NAME = re.compile(r"^(?:CC0|CC BY|CC BY-SA) \d\.\d$", re.IGNORECASE)
 REQUIRED_CREDIT = ("image", "author", "sourceUrl", "license", "licenseUrl")
+# Commons captions may still use a former name. Keep the BirdNET name in the catalogue.
+PHOTO_SEARCH_ALIASES = {"edolisoma tenuirostre": ("Coracina tenuirostris",)}
 
 
 class PlainText(HTMLParser):
@@ -96,7 +98,9 @@ def candidate_from_page(page: dict, species: str) -> Candidate | None:
     info = (page.get("imageinfo") or [{}])[0]
     title = page.get("title", "")
     description = plain_text(metadata_value(info, "ImageDescription"))
-    if species.casefold() not in f"{title} {description}".casefold():
+    names = (species, *PHOTO_SEARCH_ALIASES.get(species.casefold(), ()))
+    label = f"{title} {description}".casefold()
+    if not any(name.casefold() in label for name in names):
         return None
     mime = info.get("mime", "")
     author = plain_text(metadata_value(info, "Artist"))
